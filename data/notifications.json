@@ -1,0 +1,132 @@
+[
+  {
+    "id": "notif-1776612313335-3lh0mo1",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0010 Status Updated",
+    "message": "Your claim CLM-2024-0010 status has been updated to: REJECTED",
+    "read": false,
+    "timestamp": "2026-04-19T15:25:13.335Z",
+    "metadata": {
+      "claimId": "CLM-2024-0010",
+      "oldStatus": "unknown",
+      "newStatus": "REJECTED",
+      "adminNotes": "",
+      "timestamp": "2026-04-19T15:25:13.335Z"
+    }
+  },
+  {
+    "id": "notif-1776612286792-nlvriis",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0010 Status Updated",
+    "message": "Your claim CLM-2024-0010 status has been updated to: REVIEWING",
+    "read": false,
+    "timestamp": "2026-04-19T15:24:46.792Z",
+    "metadata": {
+      "claimId": "CLM-2024-0010",
+      "oldStatus": "unknown",
+      "newStatus": "REVIEWING",
+      "adminNotes": "",
+      "timestamp": "2026-04-19T15:24:46.791Z"
+    }
+  },
+  {
+    "id": "notif-1776594361099-8nhjto2",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0009 Status Updated",
+    "message": "Your claim CLM-2024-0009 status has been updated to: APPROVED",
+    "read": false,
+    "timestamp": "2026-04-19T10:26:01.099Z",
+    "metadata": {
+      "claimId": "CLM-2024-0009",
+      "oldStatus": "unknown",
+      "newStatus": "APPROVED",
+      "adminNotes": "",
+      "timestamp": "2026-04-19T10:26:01.099Z"
+    }
+  },
+  {
+    "id": "notif-1776594358483-h0vym2j",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0007 Status Updated",
+    "message": "Your claim CLM-2024-0007 status has been updated to: APPROVED",
+    "read": false,
+    "timestamp": "2026-04-19T10:25:58.483Z",
+    "metadata": {
+      "claimId": "CLM-2024-0007",
+      "oldStatus": "unknown",
+      "newStatus": "APPROVED",
+      "adminNotes": "",
+      "timestamp": "2026-04-19T10:25:58.483Z"
+    }
+  },
+  {
+    "id": "notif-001",
+    "userId": "user1",
+    "type": "claim_submitted",
+    "title": "Claim Submitted Successfully",
+    "message": "Your auto insurance claim CLM-2024-8721 has been submitted and is under review.",
+    "read": false,
+    "timestamp": "2026-04-16T05:52:08.601Z",
+    "metadata": {
+      "claimId": "CLM-2024-8721",
+      "claimType": "Auto Insurance"
+    }
+  },
+  {
+    "id": "notif-002",
+    "userId": "user2",
+    "type": "claim_approved",
+    "title": "Claim Approved",
+    "message": "Your health insurance claim CLM-2024-8650 has been approved. Payment will be processed within 3-5 business days.",
+    "read": true,
+    "timestamp": "2026-04-14T05:52:08.601Z",
+    "metadata": {
+      "claimId": "CLM-2024-8650",
+      "claimType": "Health Insurance",
+      "amount": 2100
+    }
+  },
+  {
+    "id": "notif-003",
+    "userId": "user3",
+    "type": "claim_rejected",
+    "title": "Claim Requires Additional Information",
+    "message": "Your home insurance claim CLM-2024-8543 requires additional documentation. Please upload the requested documents.",
+    "read": false,
+    "timestamp": "2026-04-17T05:52:08.601Z",
+    "metadata": {
+      "claimId": "CLM-2024-8543",
+      "claimType": "Home Insurance"
+    }
+  },
+  {
+    "id": "notif-004",
+    "userId": "user1",
+    "type": "risk_alert",
+    "title": "High Risk Alert",
+    "message": "Your recent claim has been flagged for manual review due to high risk score. Our team will contact you shortly.",
+    "read": false,
+    "timestamp": "2026-04-18T05:52:08.601Z",
+    "metadata": {
+      "claimId": "CLM-2024-8721",
+      "riskScore": 45
+    }
+  },
+  {
+    "id": "notif-005",
+    "userId": "user2",
+    "type": "payment_processed",
+    "title": "Payment Processed",
+    "message": "Payment of ₹2,100 for claim CLM-2024-8650 has been processed and will reflect in your account within 24 hours.",
+    "read": true,
+    "timestamp": "2026-04-15T05:52:08.601Z",
+    "metadata": {
+      "claimId": "CLM-2024-8650",
+      "amount": 2100
+    }
+  }
+]

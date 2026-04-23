@@ -1,0 +1,52 @@
+[
+  {
+    "id": "n9i0lm",
+    "name": "U2FsdGVkX191TGKBECXf4EK0IDHoSvkwKqiMadrmRnU=",
+    "email": "U2FsdGVkX1/YTF1bu2h1tnaap/IaKjXXpoDDGjMPMMeDAqlbFmxk3GN5IkbpCFIG",
+    "password": "$2b$10$ufOtUzTAnlSIRe9Fq04MuOX0B3SEK8U/QPhJSKhsaT7fgb1Wn85Zu",
+    "isVerified": true,
+    "createdAt": 1776528450560,
+    "role": "user",
+    "emailHash": "973dfe463ec85785f5f95af5ba3906eedb2d931c24e69824a89ea65dba4e813b"
+  },
+  {
+    "id": "a25pyu",
+    "name": "U2FsdGVkX19wiS6Qmc64+Tx6kl0+EDSRA5DGWmCulnNqyhxI8OpDSrkqGEEpABpe",
+    "email": "U2FsdGVkX1+S0ZQZJTw+zotpg8XMoUfJNWWq06F1w1UTdWrpjsisIC9hQdhBJ6lK",
+    "password": "$2b$10$YBcm8B2fEZiyXrZ360ip4e9zrxpSLauxZrwmyjeWv23.k99W6.rAe",
+    "isVerified": true,
+    "createdAt": 1776529565598,
+    "role": "user",
+    "emailHash": "cb2ebb9e46916fbdedf466278be91facd9c283ca31991bd3599e2056e35950d2"
+  },
+  {
+    "id": "tmzlm",
+    "name": "U2FsdGVkX1+nyAXtJ1GBpIbQ+Swin6gOLO1llMeh7N0=",
+    "email": "U2FsdGVkX18kZtBXXMnVnAb8MbiKJAYZZnN9ZpFF7gtwJrzXuplaDeqKPeGa+25w",
+    "password": "$2b$10$p.pv0dgeCjwBloq.1k5gPuVWYb50vhDfIUypuaed8xw6TUdSe.2ea",
+    "isVerified": true,
+    "createdAt": 1776578057987,
+    "role": "user",
+    "emailHash": "973dfe463ec85785f5f95af5ba3906eedb2d931c24e69824a89ea65dba4e813b"
+  },
+  {
+    "id": "l6k7ab",
+    "name": "U2FsdGVkX182bNX7GrNEC/zARNSCkbdhOTsul+uTe+2zRMnJPTo+nZ5f3IuSmL4r",
+    "email": "U2FsdGVkX18bUYFziw5gmEcLYhLbvK+nuFdZ41ykQHidi4NzIxG/vbhEhj7LKoQV",
+    "password": "$2b$10$Z2yT/D1QjTW8VGgtQKjxrePRh3l9xjx6CGtxoxphLjyaxq1Kw.aQG",
+    "isVerified": true,
+    "createdAt": 1776660337987,
+    "role": "user",
+    "emailHash": "d661705ecee883931c0aff70216680ea4fb585357a250074d114d11b91295fa3"
+  },
+  {
+    "id": "5e8n5d",
+    "name": "U2FsdGVkX18UoVGo/u3Q0EcOeA0Gk1lkmV0vG36fZoo=",
+    "email": "U2FsdGVkX1+a97euGGvB87+p8mI/zHgn603z5cGA0FDOZRJKCydhBwu9hoFFgUND",
+    "password": "$2b$10$Oz0Tvtyw34cQijt2E1.Q2Orj.eptKq0XyvEifS3yP65EQ4hGUKxPK",
+    "isVerified": true,
+    "createdAt": 1776753294468,
+    "role": "user",
+    "emailHash": "af26b231a6ddaa52521fcb72b3d9d32686084d43b336a51417fd36e5df917d53"
+  }
+]

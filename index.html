@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartClaim AI</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
+  <button id="chat-toggle-btn" onclick="toggleChatbot()" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10000;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #0F172A; /* Dark Blue */
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+      " class="chatbot-toggle sm:w-12 sm:h-12 sm:text-2xl">
+
+  </button>
+
+  <div id="chat-window" style="
+        display: none; /* HIDDEN INITIALLY */
+        position: fixed;
+        bottom: 86px;
+        right: 20px;
+        z-index: 9999;
+        width: calc(100vw - 40px);
+        max-width: 400px;
+        height: 500px;
+        max-height: 70vh;
+        background: white;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+      " class="chatbot-window sm:right-4 sm:bottom-20 sm:w-96 sm:max-w-md sm:h-96">
+    <iframe src="https://insure-assist-bot.lovable.app/chat" width="100%" height="100%" frameborder="0"
+      style="border: none;"></iframe>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      const chatWindow = document.getElementById('chat-window');
+      const btn = document.getElementById('chat-toggle-btn');
+
+      if (chatWindow.style.display === 'none') {
+        chatWindow.style.display = 'block';
+        btn.innerHTML = '✕'; // Change icon to X
+      } else {
+        chatWindow.style.display = 'none';
+        btn.innerHTML = '💬'; // Change icon back to chat
+      }
+    }
+  </script>
+</body>
+
+</html>

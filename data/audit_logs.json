@@ -1,0 +1,115 @@
+[
+  {
+    "id": 1776753542482,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-2024-0012 submitted for ₹741852963741852",
+    "timestamp": "2026-04-21T06:39:02.482Z"
+  },
+  {
+    "id": 1776660678994,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0011 submitted for ₹74185296374185",
+    "timestamp": "2026-04-20T04:51:18.994Z"
+  },
+  {
+    "id": 1776612235462,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0010 submitted for ₹741852963741852963",
+    "timestamp": "2026-04-19T15:23:55.462Z"
+  },
+  {
+    "id": 1776594002647,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0009 submitted for ₹500000",
+    "timestamp": "2026-04-19T10:20:02.647Z"
+  },
+  {
+    "id": 1776581884366,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0008 submitted for ₹741258963214569845",
+    "timestamp": "2026-04-19T06:58:04.366Z"
+  },
+  {
+    "id": 1776581884336,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0007 submitted for ₹741258963214569845",
+    "timestamp": "2026-04-19T06:58:04.336Z"
+  },
+  {
+    "id": 1776578149921,
+    "action": "CLAIM_SUBMITTED",
+    "user": "System",
+    "details": "New claim CLM-2024-0006 submitted for ₹5000",
+    "timestamp": "2026-04-19T05:55:49.921Z"
+  },
+  {
+    "timestamp": "2026-04-19T03:52:08.601Z",
+    "action": "CLAIM_SUBMITTED",
+    "userId": "user1",
+    "userName": "John Doe",
+    "claimId": "CLM-2024-8721",
+    "details": "Auto insurance claim submitted for ₹5,250"
+  },
+  {
+    "timestamp": "2026-04-19T01:52:08.601Z",
+    "action": "CLAIM_APPROVED",
+    "userId": "user2",
+    "userName": "Jane Smith",
+    "claimId": "CLM-2024-8650",
+    "details": "Health insurance claim approved for ₹2,100"
+  },
+  {
+    "timestamp": "2026-04-18T23:52:08.601Z",
+    "action": "FRAUD_DETECTED",
+    "userId": "admin",
+    "userName": "System",
+    "claimId": "CLM-2024-8543",
+    "details": "High fraud score (78) detected for claim CLM-2024-8543"
+  },
+  {
+    "timestamp": "2026-04-18T21:52:08.601Z",
+    "action": "CLAIM_REJECTED",
+    "userId": "admin",
+    "userName": "Claims Adjuster",
+    "claimId": "CLM-2024-8543",
+    "details": "Claim rejected due to fraudulent activity"
+  },
+  {
+    "timestamp": "2026-04-18T19:52:08.601Z",
+    "action": "USER_LOGIN",
+    "userId": "user3",
+    "userName": "Robert Johnson",
+    "claimId": null,
+    "details": "User logged into the system"
+  },
+  {
+    "timestamp": "2026-04-18T17:52:08.601Z",
+    "action": "DOCUMENT_UPLOADED",
+    "userId": "user4",
+    "userName": "Sarah Williams",
+    "claimId": "CLM-2024-8401",
+    "details": "Travel insurance documents uploaded"
+  },
+  {
+    "timestamp": "2026-04-18T15:52:08.601Z",
+    "action": "CLAIM_APPROVED",
+    "userId": "admin",
+    "userName": "Claims Adjuster",
+    "claimId": "CLM-2024-8401",
+    "details": "Travel insurance claim approved for ₹3,200"
+  },
+  {
+    "timestamp": "2026-04-18T13:52:08.601Z",
+    "action": "CLAIM_SUBMITTED",
+    "userId": "user5",
+    "userName": "Michael Brown",
+    "claimId": "CLM-2024-8325",
+    "details": "Auto insurance claim submitted for ₹7,800"
+  }
+]
