@@ -1,12 +1,20 @@
 import Tesseract from 'tesseract.js';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
-// Enhanced OCR Service with better field extraction and validation
+// Enhanced OCR Service with better field extraction, validation, and tampering detection
 class EnhancedOCRService {
   constructor() {
     this.worker = null;
     this.initialized = false;
+    this.policyPatterns = [
+      /[A-Z]{2,3}\d{6,}/, // ABC123456
+      /\d{3}[A-Z]{2}\d{4}/, // 123AB4567
+      /[A-Z]\d{8}/, // A12345678
+      /POL\d{7}/, // POL1234567
+      /INS\d{6}/ // INS123456
+    ];
   }
 
   async init() {
@@ -66,7 +74,7 @@ class EnhancedOCRService {
     }
   }
 
-  // Enhanced field extraction with pattern matching
+  // Enhanced field extraction with pattern matching and confidence scoring
   extractFields(text, documentType = 'general') {
     const fields = {
       amount: null,
@@ -80,7 +88,9 @@ class EnhancedOCRService {
       address: null,
       phone: null,
       email: null,
-      additionalFields: {}
+      additionalFields: {},
+      extractionConfidence: {},
+      tamperingIndicators: []
     };
 
     if (!text || text.trim().length === 0) {
@@ -89,57 +99,85 @@ class EnhancedOCRService {
 
     // Clean text for better matching
     const cleanText = text.replace(/\s+/g, ' ').trim();
+    
+    // Analyze text for tampering indicators
+    this.detectTamperingIndicators(cleanText, fields);
 
-    // 1. Amount extraction with multiple patterns
+    // 1. Amount extraction with multiple patterns and confidence scoring
     const amountPatterns = [
-      /(?:Rs\.?|INR|₹|\$)\s*([\d,]+(?:\.\d{2})?)/i,
-      /(?:Amount|Total|Claim|Sum)\s*[:\-]\s*(?:Rs\.?|INR|₹|\$)?\s*([\d,]+(?:\.\d{2})?)/i,
-      /(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:Rs\.?|INR|₹)/i
+      { pattern: /(?:Rs\.?|INR|₹|\$)\s*([\d,]+(?:\.\d{2})?)/i, confidence: 0.95 },
+      { pattern: /(?:Amount|Total|Claim|Sum)\s*[:\-]\s*(?:Rs\.?|INR|₹|\$)?\s*([\d,]+(?:\.\d{2})?)/i, confidence: 0.85 },
+      { pattern: /(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:Rs\.?|INR|₹)/i, confidence: 0.75 },
+      { pattern: /USD\s*([\d,]+(?:\.\d{2})?)/i, confidence: 0.90 },
+      { pattern: /€\s*([\d,]+(?:\.\d{2})?)/i, confidence: 0.90 }
     ];
 
-    for (const pattern of amountPatterns) {
+    for (const { pattern, confidence } of amountPatterns) {
       const match = cleanText.match(pattern);
       if (match && match[1]) {
         fields.amount = parseFloat(match[1].replace(/,/g, ''));
+        fields.extractionConfidence.amount = confidence;
         break;
       }
     }
 
-    // 2. Policy number extraction
+    // 2. Policy number extraction with validation patterns
     const policyPatterns = [
-      /(?:Policy\s*(?:No\.?|Number|#)?|Pol\.?)\s*[:\-\s]*([A-Z0-9\-]+)/i,
-      /(?:Policy\s*ID|PID)\s*[:\-\s]*([A-Z0-9\-]+)/i,
-      /([A-Z]{2,3}\d{6,})/ // Common pattern: ABC123456
+      { pattern: /(?:Policy\s*(?:No\.?|Number|#)?|Pol\.?)\s*[:\-\s]*([A-Z0-9\-]+)/i, confidence: 0.95 },
+      { pattern: /(?:Policy\s*ID|PID)\s*[:\-\s]*([A-Z0-9\-]+)/i, confidence: 0.90 },
+      { pattern: /([A-Z]{2,3}\d{6,})/, confidence: 0.85 }, // ABC123456
+      { pattern: /(\d{3}[A-Z]{2}\d{4})/, confidence: 0.80 }, // 123AB4567
+      { pattern: /([A-Z]\d{8})/, confidence: 0.75 } // A12345678
     ];
 
-    for (const pattern of policyPatterns) {
+    for (const { pattern, confidence } of policyPatterns) {
       const match = cleanText.match(pattern);
       if (match && match[1]) {
         fields.policyNumber = match[1].trim();
+        fields.extractionConfidence.policyNumber = confidence;
+        
+        // Validate policy number format
+        if (this.validatePolicyNumberFormat(fields.policyNumber)) {
+          fields.extractionConfidence.policyNumber += 0.05; // Bonus for valid format
+        }
         break;
       }
     }
 
-    // 3. Date extraction with multiple formats
+    // 3. Date extraction with multiple formats and validation
     const datePatterns = [
-      /(?:Date|Dated|Issued|Effective)\s*[:\-\s]*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i,
-      /(\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4})/i,
-      /(\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2})/ // ISO format
+      { pattern: /(?:Date|Dated|Issued|Effective)\s*[:\-\s]*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i, confidence: 0.95 },
+      { pattern: /(\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4})/i, confidence: 0.90 },
+      { pattern: /(\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2})/, confidence: 0.85 }, // ISO format
+      { pattern: /(?:DOB|Birth\s*Date)\s*[:\-\s]*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i, confidence: 0.80 }
     ];
 
-    for (const pattern of datePatterns) {
+    for (const { pattern, confidence } of datePatterns) {
       const match = cleanText.match(pattern);
       if (match && match[1]) {
-        fields.date = this.normalizeDate(match[1]);
-        break;
+        const normalizedDate = this.normalizeDate(match[1]);
+        if (normalizedDate) {
+          fields.date = normalizedDate;
+          fields.extractionConfidence.date = confidence;
+          break;
+        }
       }
     }
 
-    // 4. Name extraction
-    const namePattern = /(?:Name|Insured|Policyholder|Customer)\s*[:\-\s]*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})/i;
-    const nameMatch = cleanText.match(namePattern);
-    if (nameMatch && nameMatch[1]) {
-      fields.name = nameMatch[1].trim();
+    // 4. Name extraction with multiple patterns
+    const namePatterns = [
+      { pattern: /(?:Name|Insured|Policyholder|Customer)\s*[:\-\s]*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})/i, confidence: 0.90 },
+      { pattern: /(?:Full\s*Name|Applicant\s*Name)\s*[:\-\s]*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})/i, confidence: 0.85 },
+      { pattern: /(?:Mr\.?|Ms\.?|Mrs\.?|Dr\.?)\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})/i, confidence: 0.80 }
+    ];
+
+    for (const { pattern, confidence } of namePatterns) {
+      const match = cleanText.match(pattern);
+      if (match && match[1]) {
+        fields.name = match[1].trim();
+        fields.extractionConfidence.name = confidence;
+        break;
+      }
     }
 
     // Document type specific extraction
@@ -155,6 +193,9 @@ class EnhancedOCRService {
 
     // Extract contact information
     this.extractContactInfo(cleanText, fields);
+
+    // Calculate overall extraction confidence
+    fields.overallExtractionConfidence = this.calculateOverallConfidence(fields.extractionConfidence);
 
     return fields;
   }
@@ -274,6 +315,85 @@ class EnhancedOCRService {
     }
   }
 
+  // New helper methods for enhanced OCR
+
+  detectTamperingIndicators(text, fields) {
+    const indicators = [];
+    
+    // Check for inconsistent fonts/sizes (simulated by character variations)
+    const fontInconsistency = /[A-Z][a-z][A-Z][a-z]/.test(text); // Mixed case patterns
+    if (fontInconsistency) {
+      indicators.push('Mixed character case patterns detected');
+    }
+    
+    // Check for overlapping text patterns
+    const overlappingPattern = /(\w{3,})\s*\1/i; // Repeated words
+    if (overlappingPattern.test(text)) {
+      indicators.push('Possible text overlapping detected');
+    }
+    
+    // Check for suspicious whitespace patterns (multiple spaces)
+    const suspiciousSpaces = /\s{4,}/.test(text);
+    if (suspiciousSpaces) {
+      indicators.push('Excessive whitespace detected');
+    }
+    
+    // Check for inconsistent number formatting
+    const inconsistentNumbers = /(\d{1,3},\d{3},\d{3})|(\d{1,3}\.\d{3}\.\d{3})/.test(text);
+    if (inconsistentNumbers) {
+      indicators.push('Inconsistent number formatting detected');
+    }
+    
+    fields.tamperingIndicators = indicators;
+  }
+
+  validatePolicyNumberFormat(policyNumber) {
+    if (!policyNumber) return false;
+    
+    // Check against common policy number patterns
+    const patterns = [
+      /^[A-Z]{2,3}\d{6,}$/, // ABC123456
+      /^\d{3}[A-Z]{2}\d{4}$/, // 123AB4567
+      /^[A-Z]\d{8}$/, // A12345678
+      /^POL\d{7}$/, // POL1234567
+      /^INS\d{6}$/, // INS123456
+      /^[A-Z0-9]{8,12}$/ // General alphanumeric
+    ];
+    
+    return patterns.some(pattern => pattern.test(policyNumber));
+  }
+
+  calculateOverallConfidence(confidenceScores) {
+    const scores = Object.values(confidenceScores);
+    if (scores.length === 0) return 0;
+    
+    // Weighted average based on field importance
+    const weights = {
+      amount: 1.2,
+      policyNumber: 1.1,
+      date: 1.0,
+      name: 0.9,
+      vehicleRegNo: 0.8,
+      chassisNo: 0.7,
+      engineNo: 0.7,
+      makeModel: 0.8,
+      address: 0.6,
+      phone: 0.5,
+      email: 0.5
+    };
+    
+    let totalWeight = 0;
+    let weightedSum = 0;
+    
+    for (const [field, score] of Object.entries(confidenceScores)) {
+      const weight = weights[field] || 0.5;
+      weightedSum += score * weight;
+      totalWeight += weight;
+    }
+    
+    return totalWeight > 0 ? (weightedSum / totalWeight) * 100 : 0;
+  }
+
   normalizeDate(dateStr) {
     try {
       // Try to parse various date formats
@@ -325,7 +445,9 @@ class EnhancedOCRService {
       isValid: true,
       issues: [],
       warnings: [],
-      confidence: 0
+      confidence: 0,
+      tamperingScore: 0,
+      fieldQuality: {}
     };
 
     let validFields = 0;
@@ -346,30 +468,133 @@ class EnhancedOCRService {
       totalFields++;
       if (fields[field]) {
         validFields++;
+        // Assess field quality based on extraction confidence
+        const confidence = fields.extractionConfidence?.[field] || 0.5;
+        validation.fieldQuality[field] = confidence >= 0.7 ? 'HIGH' : confidence >= 0.4 ? 'MEDIUM' : 'LOW';
+        
+        if (confidence < 0.4) {
+          validation.warnings.push(`Low confidence extraction for ${field}: ${Math.round(confidence * 100)}%`);
+        }
       } else {
         validation.issues.push(`Missing required field: ${field}`);
+        validation.fieldQuality[field] = 'MISSING';
       }
     }
 
-    // Check amount validity
-    if (fields.amount && (fields.amount <= 0 || fields.amount > 100000000)) {
-      validation.warnings.push(`Amount ${fields.amount} seems unrealistic`);
+    // Check amount validity with enhanced validation
+    if (fields.amount) {
+      if (fields.amount <= 0) {
+        validation.issues.push(`Amount ${fields.amount} must be positive`);
+      } else if (fields.amount > 100000000) {
+        validation.warnings.push(`Amount ${fields.amount} seems unusually high`);
+      } else if (fields.amount < 100) {
+        validation.warnings.push(`Amount ${fields.amount} seems unusually low for an insurance claim`);
+      }
+      
+      // Check for round numbers (potential tampering indicator)
+      if (fields.amount % 1000 === 0) {
+        validation.warnings.push(`Amount ${fields.amount} is a round number (potential tampering indicator)`);
+        validation.tamperingScore += 10;
+      }
     }
 
-    // Check date validity (not in future)
+    // Check date validity with enhanced validation
     if (fields.date) {
       const extractedDate = new Date(fields.date);
       const today = new Date();
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+      
       if (extractedDate > today) {
-        validation.warnings.push(`Date ${fields.date} is in the future`);
+        validation.issues.push(`Date ${fields.date} is in the future`);
+        validation.tamperingScore += 20;
+      } else if (extractedDate < oneYearAgo) {
+        validation.warnings.push(`Date ${fields.date} is more than one year old`);
+      }
+      
+      // Check for common fake dates
+      const fakeDates = ['2020-01-01', '2021-01-01', '2022-01-01', '2023-01-01', '2024-01-01'];
+      if (fakeDates.includes(fields.date)) {
+        validation.warnings.push(`Date ${fields.date} is a common placeholder date`);
+        validation.tamperingScore += 15;
       }
     }
 
-    // Calculate confidence score
-    validation.confidence = totalFields > 0 ? (validFields / totalFields) * 100 : 0;
-    validation.isValid = validation.issues.length === 0;
+    // Check policy number format
+    if (fields.policyNumber) {
+      if (!this.validatePolicyNumberFormat(fields.policyNumber)) {
+        validation.warnings.push(`Policy number ${fields.policyNumber} doesn't match expected format`);
+        validation.tamperingScore += 5;
+      }
+      
+      // Check for sequential numbers (potential fake)
+      if (/123456|234567|345678|456789|567890/.test(fields.policyNumber)) {
+        validation.warnings.push(`Policy number contains sequential digits (potential tampering)`);
+        validation.tamperingScore += 25;
+      }
+    }
+
+    // Check for tampering indicators
+    if (fields.tamperingIndicators && fields.tamperingIndicators.length > 0) {
+      validation.warnings.push(...fields.tamperingIndicators.map(ind => `Tampering indicator: ${ind}`));
+      validation.tamperingScore += fields.tamperingIndicators.length * 5;
+    }
+
+    // Calculate overall confidence score
+    const extractionConfidence = fields.overallExtractionConfidence || 0;
+    const requiredFieldConfidence = totalFields > 0 ? (validFields / totalFields) * 100 : 0;
+    
+    // Combine OCR confidence with field validation confidence
+    validation.confidence = Math.round((extractionConfidence * 0.4) + (requiredFieldConfidence * 0.6));
+    
+    // Adjust confidence based on tampering score
+    if (validation.tamperingScore > 0) {
+      validation.confidence = Math.max(0, validation.confidence - (validation.tamperingScore / 2));
+    }
+    
+    validation.isValid = validation.issues.length === 0 && validation.tamperingScore < 50;
 
     return validation;
+  }
+
+  determineOCRRiskLevel(validation, fields) {
+    let riskScore = 0;
+    
+    // Base risk from validation confidence
+    if (validation.confidence < 30) {
+      riskScore += 40;
+    } else if (validation.confidence < 60) {
+      riskScore += 20;
+    } else if (validation.confidence < 80) {
+      riskScore += 10;
+    }
+    
+    // Tampering score contribution
+    riskScore += Math.min(validation.tamperingScore || 0, 50);
+    
+    // Missing required fields
+    const missingFields = validation.issues.filter(issue => issue.startsWith('Missing required field')).length;
+    riskScore += missingFields * 15;
+    
+    // Low confidence fields
+    const lowConfidenceFields = Object.values(validation.fieldQuality || {}).filter(q => q === 'LOW').length;
+    riskScore += lowConfidenceFields * 10;
+    
+    // Unrealistic values
+    if (validation.warnings.some(w => w.includes('unusually high') || w.includes('unusually low'))) {
+      riskScore += 15;
+    }
+    
+    // Sequential numbers or fake dates
+    if (validation.warnings.some(w => w.includes('sequential') || w.includes('placeholder'))) {
+      riskScore += 25;
+    }
+    
+    // Determine risk level
+    if (riskScore >= 70) return 'HIGH_RISK';
+    if (riskScore >= 40) return 'MEDIUM_RISK';
+    if (riskScore >= 20) return 'LOW_RISK';
+    return 'VERY_LOW_RISK';
   }
 
   async processDocument(imagePath, documentType = 'general') {
@@ -383,7 +608,14 @@ class EnhancedOCRService {
           error: ocrResult.error || "OCR extraction failed",
           extractedText: '',
           fields: {},
-          validation: { isValid: false, issues: ["OCR failed"], warnings: [], confidence: 0 }
+          validation: {
+            isValid: false,
+            issues: ["OCR failed"],
+            warnings: [],
+            confidence: 0,
+            tamperingScore: 0,
+            fieldQuality: {}
+          }
         };
       }
 
@@ -393,13 +625,23 @@ class EnhancedOCRService {
       // Validate extracted fields
       const validation = this.validateExtractedFields(fields, documentType);
 
+      // Determine overall risk level based on validation
+      const riskLevel = this.determineOCRRiskLevel(validation, fields);
+
       return {
         success: true,
         extractedText: ocrResult.text.substring(0, 500), // Limit text length
         fields,
         validation,
         ocrConfidence: ocrResult.confidence,
-        status: "COMPLETED"
+        riskLevel,
+        status: "COMPLETED",
+        metadata: {
+          documentType,
+          processingTime: new Date().toISOString(),
+          fieldCount: Object.keys(fields).filter(k => fields[k] !== null).length,
+          tamperingIndicators: fields.tamperingIndicators || []
+        }
       };
 
     } catch (error) {
@@ -409,7 +651,14 @@ class EnhancedOCRService {
         error: error.message,
         extractedText: '',
         fields: {},
-        validation: { isValid: false, issues: ["Processing error"], warnings: [], confidence: 0 }
+        validation: {
+          isValid: false,
+          issues: ["Processing error"],
+          warnings: [],
+          confidence: 0,
+          tamperingScore: 0,
+          fieldQuality: {}
+        }
       };
     }
   }

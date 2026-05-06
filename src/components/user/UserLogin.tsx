@@ -64,7 +64,18 @@ export function UserLogin({ onLogin }: UserLoginProps) {
       }
     } catch (err) {
       console.error('Network error:', err);
-      setError('Unable to connect to server. Please check your internet connection and try again.');
+      let errorMessage = 'Unable to connect to server. ';
+
+      if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
+        errorMessage += 'This is usually a CORS or network issue. ';
+        errorMessage += 'Make sure the backend server is running on http://localhost:3000 and CORS is properly configured.';
+      } else if (err instanceof TypeError) {
+        errorMessage += `Network error: ${err.message}`;
+      } else {
+        errorMessage += 'Please check your internet connection and try again.';
+      }
+
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

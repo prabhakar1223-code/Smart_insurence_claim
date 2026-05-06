@@ -1,132 +1,603 @@
 [
   {
-    "id": "notif-1776612313335-3lh0mo1",
-    "userId": "shindeprabhakar686@gmail.com",
+    "id": "notif-1778075752181-4lg6hm0",
+    "userId": "prabhakarshinde1223@gmail.com",
     "type": "claim_status_update",
-    "title": "Claim CLM-2024-0010 Status Updated",
-    "message": "Your claim CLM-2024-0010 status has been updated to: REJECTED",
+    "title": "Claim CLM-2024-0013 Status Updated",
+    "message": "Your claim CLM-2024-0013 status has been updated to: REJECTED",
     "read": false,
-    "timestamp": "2026-04-19T15:25:13.335Z",
+    "timestamp": "2026-05-06T13:55:52.181Z",
     "metadata": {
-      "claimId": "CLM-2024-0010",
+      "claimId": "CLM-2024-0013",
       "oldStatus": "unknown",
       "newStatus": "REJECTED",
       "adminNotes": "",
-      "timestamp": "2026-04-19T15:25:13.335Z"
-    }
+      "timestamp": "2026-05-06T13:55:52.181Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
   },
   {
-    "id": "notif-1776612286792-nlvriis",
-    "userId": "shindeprabhakar686@gmail.com",
+    "id": "notif-1778075283572-b72livb",
+    "userId": "akshayshinde1212@gmail.com",
     "type": "claim_status_update",
-    "title": "Claim CLM-2024-0010 Status Updated",
-    "message": "Your claim CLM-2024-0010 status has been updated to: REVIEWING",
+    "title": "Claim CLM-2024-0015 Status Updated",
+    "message": "Your claim CLM-2024-0015 status has been updated to: REJECTED",
     "read": false,
-    "timestamp": "2026-04-19T15:24:46.792Z",
+    "timestamp": "2026-05-06T13:48:03.572Z",
     "metadata": {
-      "claimId": "CLM-2024-0010",
+      "claimId": "CLM-2024-0015",
       "oldStatus": "unknown",
-      "newStatus": "REVIEWING",
+      "newStatus": "REJECTED",
       "adminNotes": "",
-      "timestamp": "2026-04-19T15:24:46.791Z"
-    }
+      "timestamp": "2026-05-06T13:48:03.571Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
   },
   {
-    "id": "notif-1776594361099-8nhjto2",
-    "userId": "shindeprabhakar686@gmail.com",
-    "type": "claim_status_update",
-    "title": "Claim CLM-2024-0009 Status Updated",
-    "message": "Your claim CLM-2024-0009 status has been updated to: APPROVED",
+    "id": "notif-1778064049432-boaghu3",
+    "userId": "akshayshinde1212@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778064049356 has been submitted. Status: REJECTED",
     "read": false,
-    "timestamp": "2026-04-19T10:26:01.099Z",
+    "timestamp": "2026-05-06T10:40:49.432Z",
     "metadata": {
-      "claimId": "CLM-2024-0009",
-      "oldStatus": "unknown",
-      "newStatus": "APPROVED",
-      "adminNotes": "",
-      "timestamp": "2026-04-19T10:26:01.099Z"
-    }
+      "claimId": "CLM-1778064049356",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T10:40:49.422Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
   },
   {
-    "id": "notif-1776594358483-h0vym2j",
-    "userId": "shindeprabhakar686@gmail.com",
-    "type": "claim_status_update",
-    "title": "Claim CLM-2024-0007 Status Updated",
-    "message": "Your claim CLM-2024-0007 status has been updated to: APPROVED",
+    "id": "notif-1778056633853-ibkypna",
+    "userId": "prabhakarshinde1223@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778056633825 has been submitted. Status: REJECTED",
     "read": false,
-    "timestamp": "2026-04-19T10:25:58.483Z",
+    "timestamp": "2026-05-06T08:37:13.853Z",
     "metadata": {
-      "claimId": "CLM-2024-0007",
-      "oldStatus": "unknown",
-      "newStatus": "APPROVED",
-      "adminNotes": "",
-      "timestamp": "2026-04-19T10:25:58.483Z"
-    }
+      "claimId": "CLM-1778056633825",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T08:37:13.851Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778052050473-nsr5hmc",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778052050456 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T07:20:50.473Z",
+    "metadata": {
+      "claimId": "CLM-1778052050456",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T07:20:50.472Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778043611535-1jp1krx",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778043611519 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T05:00:11.535Z",
+    "metadata": {
+      "claimId": "CLM-1778043611519",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T05:00:11.535Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778043552341-5lr2g98",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778043552320 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T04:59:12.341Z",
+    "metadata": {
+      "claimId": "CLM-1778043552320",
+      "claimType": "vehicle",
+      "amount": "202678456",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T04:59:12.340Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1777370252227-u68hvi7",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1777370252207 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-04-28T09:57:32.227Z",
+    "metadata": {
+      "claimId": "CLM-1777370252207",
+      "claimType": "vehicle",
+      "amount": "741852",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-04-28T09:57:32.225Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
   },
   {
     "id": "notif-001",
     "userId": "user1",
+    "userName": "John Doe",
     "type": "claim_submitted",
+    "template": "claim_submission_confirmation",
     "title": "Claim Submitted Successfully",
     "message": "Your auto insurance claim CLM-2024-8721 has been submitted and is under review.",
+    "priority": "informational",
     "read": false,
-    "timestamp": "2026-04-16T05:52:08.601Z",
+    "archived": false,
+    "timestamp": "2026-04-26T08:00:00.000Z",
+    "expiresAt": "2026-05-26T08:00:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent"
+    },
     "metadata": {
       "claimId": "CLM-2024-8721",
-      "claimType": "Auto Insurance"
-    }
+      "claimType": "Auto Insurance",
+      "amount": 5250,
+      "riskScore": 42,
+      "routingDecision": "STANDARD_REVIEW",
+      "estimatedReviewTime": "3-5 business days"
+    },
+    "actions": [
+      {
+        "label": "View Claim",
+        "action": "view_claim",
+        "url": "/claims/CLM-2024-8721"
+      },
+      {
+        "label": "Upload Documents",
+        "action": "upload_documents",
+        "url": "/claims/CLM-2024-8721/documents"
+      }
+    ],
+    "category": "claim_updates"
   },
   {
     "id": "notif-002",
     "userId": "user2",
+    "userName": "Jane Smith",
     "type": "claim_approved",
+    "template": "claim_approval_notification",
     "title": "Claim Approved",
     "message": "Your health insurance claim CLM-2024-8650 has been approved. Payment will be processed within 3-5 business days.",
+    "priority": "important",
     "read": true,
-    "timestamp": "2026-04-14T05:52:08.601Z",
+    "archived": false,
+    "timestamp": "2026-04-26T07:45:00.000Z",
+    "expiresAt": "2026-05-26T07:45:00.000Z",
+    "channels": [
+      "in_app",
+      "email",
+      "sms"
+    ],
+    "deliveryStatus": {
+      "in_app": "read",
+      "email": "delivered",
+      "sms": "sent"
+    },
     "metadata": {
       "claimId": "CLM-2024-8650",
       "claimType": "Health Insurance",
-      "amount": 2100
-    }
+      "amount": 2100,
+      "approvedAmount": 2100,
+      "paymentMethod": "bank_transfer",
+      "paymentDate": "2026-04-29",
+      "referenceNumber": "PAY-2024-00123"
+    },
+    "actions": [
+      {
+        "label": "View Payment Details",
+        "action": "view_payment",
+        "url": "/payments/PAY-2024-00123"
+      },
+      {
+        "label": "Download Approval Letter",
+        "action": "download_document",
+        "url": "/claims/CLM-2024-8650/approval-letter"
+      }
+    ],
+    "category": "claim_updates"
   },
   {
     "id": "notif-003",
     "userId": "user3",
+    "userName": "Robert Johnson",
     "type": "claim_rejected",
+    "template": "claim_rejection_notification",
     "title": "Claim Requires Additional Information",
     "message": "Your home insurance claim CLM-2024-8543 requires additional documentation. Please upload the requested documents.",
+    "priority": "urgent",
     "read": false,
-    "timestamp": "2026-04-17T05:52:08.601Z",
+    "archived": false,
+    "timestamp": "2026-04-26T07:30:00.000Z",
+    "expiresAt": "2026-04-30T07:30:00.000Z",
+    "channels": [
+      "in_app",
+      "email",
+      "push"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent",
+      "push": "delivered"
+    },
     "metadata": {
       "claimId": "CLM-2024-8543",
-      "claimType": "Home Insurance"
-    }
+      "claimType": "Home Insurance",
+      "rejectionReason": "Insufficient documentation",
+      "requiredDocuments": [
+        "Proof of ownership",
+        "Repair estimates",
+        "Police report"
+      ],
+      "deadline": "2026-04-30",
+      "riskScore": 65,
+      "investigationStatus": "pending"
+    },
+    "actions": [
+      {
+        "label": "Upload Required Documents",
+        "action": "upload_documents",
+        "url": "/claims/CLM-2024-8543/documents"
+      },
+      {
+        "label": "Contact Support",
+        "action": "contact_support",
+        "url": "/support/claim-help"
+      }
+    ],
+    "category": "claim_updates"
   },
   {
     "id": "notif-004",
     "userId": "user1",
+    "userName": "John Doe",
     "type": "risk_alert",
+    "template": "high_risk_alert",
     "title": "High Risk Alert",
     "message": "Your recent claim has been flagged for manual review due to high risk score. Our team will contact you shortly.",
+    "priority": "urgent",
     "read": false,
-    "timestamp": "2026-04-18T05:52:08.601Z",
+    "archived": false,
+    "timestamp": "2026-04-26T07:15:00.000Z",
+    "expiresAt": "2026-04-29T07:15:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent"
+    },
     "metadata": {
       "claimId": "CLM-2024-8721",
-      "riskScore": 45
-    }
+      "riskScore": 78,
+      "riskLevel": "high",
+      "fraudFlags": [
+        "Claim amount anomaly",
+        "Policy mismatch"
+      ],
+      "investigationStatus": "auto_rejected",
+      "nextSteps": "Claim has been automatically rejected. Contact fraud department for appeal."
+    },
+    "actions": [
+      {
+        "label": "View Risk Details",
+        "action": "view_risk",
+        "url": "/claims/CLM-2024-8721/risk-analysis"
+      },
+      {
+        "label": "Contact Fraud Department",
+        "action": "contact_fraud",
+        "url": "/support/fraud-department"
+      }
+    ],
+    "category": "risk_alerts"
   },
   {
     "id": "notif-005",
     "userId": "user2",
+    "userName": "Jane Smith",
     "type": "payment_processed",
+    "template": "payment_processed_notification",
     "title": "Payment Processed",
     "message": "Payment of ₹2,100 for claim CLM-2024-8650 has been processed and will reflect in your account within 24 hours.",
+    "priority": "important",
     "read": true,
-    "timestamp": "2026-04-15T05:52:08.601Z",
+    "archived": false,
+    "timestamp": "2026-04-26T07:00:00.000Z",
+    "expiresAt": "2026-05-26T07:00:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "read",
+      "email": "delivered"
+    },
     "metadata": {
       "claimId": "CLM-2024-8650",
-      "amount": 2100
-    }
+      "amount": 2100,
+      "paymentDate": "2026-04-26",
+      "transactionId": "TXN-2024-001234",
+      "bankAccount": "XXXX-XXXX-1234",
+      "estimatedArrival": "2026-04-27"
+    },
+    "actions": [
+      {
+        "label": "View Transaction",
+        "action": "view_transaction",
+        "url": "/transactions/TXN-2024-001234"
+      },
+      {
+        "label": "Download Receipt",
+        "action": "download_receipt",
+        "url": "/claims/CLM-2024-8650/receipt"
+      }
+    ],
+    "category": "payments"
+  },
+  {
+    "id": "notif-006",
+    "userId": "admin1",
+    "userName": "Sarah Johnson",
+    "type": "investigation_assigned",
+    "template": "investigation_assignment",
+    "title": "New Investigation Assigned",
+    "message": "You have been assigned to investigate claim CLM-2024-0012 (High Risk: 78)",
+    "priority": "urgent",
+    "read": false,
+    "archived": false,
+    "timestamp": "2026-04-26T06:45:00.000Z",
+    "expiresAt": "2026-04-28T06:45:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent"
+    },
+    "metadata": {
+      "claimId": "CLM-2024-0012",
+      "riskScore": 78,
+      "priority": "high",
+      "assignedBy": "system",
+      "estimatedTime": "48 hours",
+      "riskFactors": [
+        "Claim amount anomaly",
+        "Policy mismatch",
+        "Geographic anomaly"
+      ]
+    },
+    "actions": [
+      {
+        "label": "Start Investigation",
+        "action": "start_investigation",
+        "url": "/admin/investigations/CLM-2024-0012"
+      },
+      {
+        "label": "View Risk Analysis",
+        "action": "view_risk_analysis",
+        "url": "/admin/claims/CLM-2024-0012/risk"
+      }
+    ],
+    "category": "admin_alerts"
+  },
+  {
+    "id": "notif-007",
+    "userId": "user3",
+    "userName": "Robert Johnson",
+    "type": "document_uploaded",
+    "template": "document_upload_confirmation",
+    "title": "Documents Uploaded Successfully",
+    "message": "Your documents for claim CLM-2024-8543 have been uploaded and are being processed.",
+    "priority": "informational",
+    "read": false,
+    "archived": false,
+    "timestamp": "2026-04-26T06:30:00.000Z",
+    "expiresAt": "2026-05-26T06:30:00.000Z",
+    "channels": [
+      "in_app"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered"
+    },
+    "metadata": {
+      "claimId": "CLM-2024-8543",
+      "documentCount": 3,
+      "documentTypes": [
+        "Proof of ownership",
+        "Repair estimates",
+        "Police report"
+      ],
+      "processingTime": "1-2 hours",
+      "ocrStatus": "processing"
+    },
+    "actions": [
+      {
+        "label": "View Uploaded Documents",
+        "action": "view_documents",
+        "url": "/claims/CLM-2024-8543/documents"
+      }
+    ],
+    "category": "document_updates"
+  },
+  {
+    "id": "notif-008",
+    "userId": "admin2",
+    "userName": "Michael Chen",
+    "type": "system_alert",
+    "template": "volume_anomaly_alert",
+    "title": "High Volume Alert",
+    "message": "High volume of claims detected in last hour (15 claims). Review for potential coordinated fraud attack.",
+    "priority": "urgent",
+    "read": false,
+    "archived": false,
+    "timestamp": "2026-04-26T06:15:00.000Z",
+    "expiresAt": "2026-04-27T06:15:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent"
+    },
+    "metadata": {
+      "alertType": "volume_anomaly",
+      "metric": "claims_per_hour",
+      "value": 15,
+      "threshold": 10,
+      "deviation": "50%",
+      "timePeriod": "last hour",
+      "recommendation": "Review for potential coordinated fraud attack"
+    },
+    "actions": [
+      {
+        "label": "View Volume Dashboard",
+        "action": "view_dashboard",
+        "url": "/admin/analytics/volume"
+      },
+      {
+        "label": "Run Fraud Analysis",
+        "action": "run_analysis",
+        "url": "/admin/fraud/analysis"
+      }
+    ],
+    "category": "system_alerts"
+  },
+  {
+    "id": "notif-009",
+    "userId": "user1",
+    "userName": "John Doe",
+    "type": "policy_renewal",
+    "template": "policy_renewal_reminder",
+    "title": "Policy Renewal Reminder",
+    "message": "Your auto insurance policy AUTO-001 expires in 30 days. Renew now to avoid coverage lapse.",
+    "priority": "important",
+    "read": false,
+    "archived": false,
+    "timestamp": "2026-04-26T06:00:00.000Z",
+    "expiresAt": "2026-05-01T06:00:00.000Z",
+    "channels": [
+      "in_app",
+      "email",
+      "sms"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent",
+      "sms": "pending"
+    },
+    "metadata": {
+      "policyId": "AUTO-001",
+      "policyType": "Auto Insurance",
+      "expiryDate": "2026-05-26",
+      "daysRemaining": 30,
+      "renewalPremium": 12500,
+      "discountAvailable": true,
+      "discountAmount": 1500
+    },
+    "actions": [
+      {
+        "label": "Renew Policy",
+        "action": "renew_policy",
+        "url": "/policies/AUTO-001/renew"
+      },
+      {
+        "label": "View Renewal Quote",
+        "action": "view_quote",
+        "url": "/policies/AUTO-001/quote"
+      }
+    ],
+    "category": "policy_updates"
+  },
+  {
+    "id": "notif-010",
+    "userId": "admin1",
+    "userName": "Sarah Johnson",
+    "type": "investigation_completed",
+    "template": "investigation_completion",
+    "title": "Investigation Completed",
+    "message": "Investigation for claim CLM-2024-0012 has been completed. Final decision: FRAUD_CONFIRMED",
+    "priority": "important",
+    "read": false,
+    "archived": false,
+    "timestamp": "2026-04-26T05:45:00.000Z",
+    "expiresAt": "2026-05-26T05:45:00.000Z",
+    "channels": [
+      "in_app",
+      "email"
+    ],
+    "deliveryStatus": {
+      "in_app": "delivered",
+      "email": "sent"
+    },
+    "metadata": {
+      "claimId": "CLM-2024-0012",
+      "investigationId": "inv-001",
+      "duration": "36 hours",
+      "findings": "Claim amount anomaly confirmed, policy mismatch detected",
+      "decision": "FRAUD_CONFIRMED",
+      "recommendations": [
+        "Blacklist user",
+        "Report to regulatory authorities",
+        "Update fraud patterns"
+      ]
+    },
+    "actions": [
+      {
+        "label": "View Investigation Report",
+        "action": "view_report",
+        "url": "/admin/investigations/inv-001/report"
+      },
+      {
+        "label": "Take Action",
+        "action": "take_action",
+        "url": "/admin/claims/CLM-2024-0012/actions"
+      }
+    ],
+    "category": "admin_alerts"
   }
 ]

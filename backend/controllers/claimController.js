@@ -215,35 +215,48 @@ class ClaimProcessingController {
   
   /**
    * Generate validation decision based on risk score and validation results
+   * Updated auto-routing thresholds per user requirements:
+   * 0-19: AUTO_APPROVE (Instant approval, no human review)
+   * 20-75: UNDER_REVIEW (Send to fraud alert section for admin review)
+   * 76-100: AUTO_REJECT (Instant rejection)
    */
   generateValidationDecision(riskResult) {
     const { overallScore, riskStatus } = riskResult;
     
-    let decision, confidence;
+    let decision, confidence, routingPriority;
     
-    if (riskStatus === 'SAFE' || overallScore < 20) {
+    if (overallScore < 20) {
       decision = 'AUTO_APPROVE';
-      confidence = 0.9;
-    } else if (riskStatus === 'LOW_RISK' || overallScore < 40) {
-      decision = 'FAST_TRACK';
-      confidence = 0.7;
-    } else if (riskStatus === 'MEDIUM_RISK' || overallScore < 60) {
-      decision = 'STANDARD_REVIEW';
-      confidence = 0.5;
-    } else if (riskStatus === 'HIGH_RISK' || overallScore < 80) {
-      decision = 'ENHANCED_REVIEW';
-      confidence = 0.3;
+      confidence = 0.95;
+      routingPriority = 'IMMEDIATE';
+    } else if (overallScore <= 75) {
+      decision = 'UNDER_REVIEW';
+      confidence = 0.60;
+      routingPriority = 'HIGH';
     } else {
-      decision = 'FRAUD_INVESTIGATION';
-      confidence = 0.1;
+      decision = 'AUTO_REJECT';
+      confidence = 0.30;
+      routingPriority = 'CRITICAL';
     }
+    
+    // Map riskStatus to new categories for backward compatibility
+    let mappedRiskStatus = riskStatus;
+    if (overallScore < 20) mappedRiskStatus = 'VERY_LOW_RISK';
+    else if (overallScore <= 75) mappedRiskStatus = 'HIGH_RISK';
+    else mappedRiskStatus = 'CRITICAL_RISK';
     
     return {
       status: 'COMPLETED',
       decision,
       confidence,
+      routingPriority,
       riskScore: overallScore,
-      riskStatus,
+      riskStatus: mappedRiskStatus,
+      decisionThresholds: {
+        autoApprove: 20,
+        fraudInvestigation: 75,
+        autoReject: 76
+      },
       timestamp: new Date().toISOString()
     };
   }
@@ -334,6 +347,14 @@ class ClaimProcessingController {
         'Complete enhanced due diligence',
         'Process within 5-10 business days'
       ],
+      AUTO_REJECT: [
+        'Flag for fraud investigation team',
+        'Freeze claim processing',
+        'Collect additional evidence',
+        'Notify legal department if needed',
+        'Send rejection notification to claimant'
+      ],
+      // Keep FRAUD_INVESTIGATION for backward compatibility
       FRAUD_INVESTIGATION: [
         'Flag for fraud investigation team',
         'Freeze claim processing',

@@ -1,0 +1,346 @@
+[
+  {
+    "id": "CLM-2024-0013",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "20257",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 10,
+    "advancedRiskScore": 15,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 0,
+      "frequencyBurst": 0,
+      "policyTiming": 0,
+      "userHistory": 0,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 5
+    },
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "Claim description is too vague or missing details"
+    ],
+    "status": "APPROVED",
+    "routingPriority": "AUTO_APPROVE",
+    "investigationStatus": "NOT_REQUIRED",
+    "breakdown": [
+      {
+        "factor": "Weak Evidence",
+        "score": 10
+      }
+    ],
+    "submittedDate": "2026-04-24T05:25:17.470Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim description is too vague or missing details",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 85,
+      "tamperingScore": 5,
+      "riskLevel": "low",
+      "fieldQuality": {
+        "policyNumber": 90,
+        "amount": 80,
+        "date": 75
+      }
+    },
+    "investigationNotes": [],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-24T05:25:17.470Z",
+        "user": "rahul singh",
+        "details": "New claim submitted"
+      }
+    ]
+  },
+  {
+    "id": "CLM-2024-0012",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "741852963741852",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 50,
+    "advancedRiskScore": 65,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 30,
+      "frequencyBurst": 0,
+      "policyTiming": 25,
+      "userHistory": 0,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 0
+    },
+    "fraudSeverity": "high",
+    "fraudFlags": [
+      "Claim amount is significantly higher than expected baseline or average",
+      "Claim filed for high amount shortly after policy start/activity",
+      "Claim description is too vague or missing details"
+    ],
+    "status": "MANUAL_REVIEW",
+    "routingPriority": "ENHANCED_REVIEW",
+    "investigationStatus": "PENDING",
+    "breakdown": [
+      {
+        "factor": "Amount Anomaly",
+        "score": 20
+      },
+      {
+        "factor": "Policy Timing",
+        "score": 20
+      },
+      {
+        "factor": "Weak Evidence",
+        "score": 10
+      }
+    ],
+    "submittedDate": "2026-04-21T06:39:02.480Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim filed for high amount shortly after policy start/activity, Claim description is too vague or missing details",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 70,
+      "tamperingScore": 15,
+      "riskLevel": "medium",
+      "fieldQuality": {
+        "policyNumber": 75,
+        "amount": 60,
+        "date": 65
+      }
+    },
+    "investigationNotes": [],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-21T06:39:02.480Z",
+        "user": "rahul singh",
+        "details": "New claim submitted"
+      },
+      {
+        "action": "RISK_ASSESSMENT",
+        "timestamp": "2026-04-21T06:40:00.000Z",
+        "user": "System",
+        "details": "High risk detected - flagged for enhanced review"
+      }
+    ]
+  },
+  {
+    "id": "CLM-2024-0011",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "vehicle",
+    "amount": "74185296374185",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 75,
+    "advancedRiskScore": 85,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 30,
+      "frequencyBurst": 25,
+      "policyTiming": 0,
+      "userHistory": 30,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 0
+    },
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "Claim amount is significantly higher than expected baseline or average",
+      "User has a history of rejected or fraudulent claims",
+      "Claim description is too vague or missing details",
+      "Too many claims filed by this user in a short period of time"
+    ],
+    "status": "REJECTED",
+    "routingPriority": "AUTO_REJECT",
+    "investigationStatus": "COMPLETED",
+    "breakdown": [
+      {
+        "factor": "Amount Anomaly",
+        "score": 20
+      },
+      {
+        "factor": "User History",
+        "score": 30
+      },
+      {
+        "factor": "Weak Evidence",
+        "score": 10
+      },
+      {
+        "factor": "Frequency Burst",
+        "score": 15
+      }
+    ],
+    "submittedDate": "2026-04-20T04:51:18.988Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, User has a history of rejected or fraudulent claims, Claim description is too vague or missing details, Too many claims filed by this user in a short period of time",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 55,
+      "tamperingScore": 25,
+      "riskLevel": "high",
+      "fieldQuality": {
+        "policyNumber": 50,
+        "amount": 45,
+        "date": 40
+      }
+    },
+    "investigationNotes": [
+      {
+        "id": "note-001",
+        "adminId": "admin1",
+        "adminName": "Fraud Investigator",
+        "content": "Multiple high-value claims from same user within short period",
+        "timestamp": "2026-04-20T05:00:00.000Z",
+        "tags": [
+          "suspicious_pattern",
+          "high_frequency"
+        ]
+      }
+    ],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-20T04:51:18.988Z",
+        "user": "Prabhakar Shivaji Shinde",
+        "details": "New claim submitted"
+      },
+      {
+        "action": "AUTO_REJECTED",
+        "timestamp": "2026-04-20T04:52:00.000Z",
+        "user": "System",
+        "details": "Claim auto-rejected due to critical risk score (85)"
+      },
+      {
+        "action": "INVESTIGATION_STARTED",
+        "timestamp": "2026-04-20T05:00:00.000Z",
+        "user": "admin1",
+        "details": "Fraud investigation initiated"
+      }
+    ]
+  },
+  {
+    "id": "CLM-2024-0010",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "home",
+    "policyId": "POL-HOME-7426 (Columbus villa)",
+    "amount": "741852963741852963",
+    "incidentDate": "2026-04-19",
+    "description": "Data extracted via OCR.\nPolicy #: Number\n",
+    "aiPrediction": "damage_home",
+    "extractedData": {
+      "success": true,
+      "extractedText": "[ Petey umber Potcy Period Etective Date\n| E— TT e—— CC TIT TTT e— CCC)\nNamed Insured and Address Agency Information = ]\nomaTAN 00K CLASSIC INSURANCE COMPANY\nJane por 101 Busnes ave i\nPolicy Number Policy Period Effective Date\nABC1234567 10/23/2018 ~ 10/23/2019 12:01 a.m. Standard Time ~ 10/23/2018\n",
+      "amount": null,
+      "policyNumber": "Number",
+      "date": null
+    },
+    "carDamage": null,
+    "status": "REJECTED",
+    "routingPriority": "AUTO_REJECT",
+    "investigationStatus": "COMPLETED",
+    "breakdown": [
+      {
+        "factor": "Amount Anomaly",
+        "score": 20
+      },
+      {
+        "factor": "Frequency Burst",
+        "score": 15
+      },
+      {
+        "factor": "Duplicate Detection",
+        "score": 25
+      }
+    ],
+    "submittedDate": "2026-04-19T15:23:55.459Z",
+    "reviewedDate": "2026-04-19T15:25:13.332Z",
+    "adminNotes": null,
+    "fraudScore": 60,
+    "advancedRiskScore": 75,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 30,
+      "frequencyBurst": 25,
+      "policyTiming": 0,
+      "userHistory": 0,
+      "documentQuality": 5,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 25,
+      "behavioralPattern": 0,
+      "thirdPartyData": 0
+    },
+    "fraudSeverity": "high",
+    "fraudFlags": [
+      "Claim amount is significantly higher than expected baseline or average",
+      "Too many claims filed by this user in a short period of time",
+      "Duplicate description or evidence detected across multiple claims"
+    ],
+    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Too many claims filed by this user in a short period of time, Duplicate description or evidence detected across multiple claims",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 40,
+      "tamperingScore": 35,
+      "riskLevel": "high",
+      "fieldQuality": {
+        "policyNumber": 30,
+        "amount": 20,
+        "date": 25
+      },
+      "validationIssues": [
+        "Policy number format invalid",
+        "Amount field missing",
+        "Date field missing"
+      ]
+    },
+    "investigationNotes": [
+      {
+        "id": "note-002",
+        "adminId": "admin2",
+        "adminName": "Claims Adjuster",
+        "content": "Extremely high claim amount with poor OCR quality",
+        "timestamp": "2026-04-19T15:24:00.000Z",
+        "tags": [
+          "excessive_amount",
+          "poor_documentation"
+        ]
+      }
+    ],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-19T15:23:55.459Z",
+        "user": "Prabhakar Shivaji Shinde",
+        "details": "New claim submitted"
+      },
+      {
+        "action": "OCR_PROCESSED",
+        "timestamp": "2026-04-19T15:24:00.000Z",
+        "user": "System",
+        "details": "OCR extraction completed with low confidence (40%)"
+      },
+      {
+        "action": "CLAIM_REJECTED",
+        "timestamp": "2026-04-19T15:25:13.332Z",
+        "user": "System",
+        "details": "Claim rejected due to high risk score"
+      }
+    ]
+  }
+]

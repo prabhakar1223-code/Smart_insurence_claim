@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Authentication Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    .container {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #60a5fa;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #0f172a;
+    }
+
+    .test-section h2 {
+      color: #38bdf8;
+      margin-top: 0;
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    button:disabled {
+      background: #64748b;
+      cursor: not-allowed;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #475569;
+      border-radius: 5px;
+      background: #1e293b;
+      color: #e2e8f0;
+      margin: 5px;
+      width: 300px;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .success {
+      background: #064e3b;
+      border: 1px solid #10b981;
+      color: #a7f3d0;
+    }
+
+    .error {
+      background: #7f1d1d;
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+
+    .info {
+      background: #1e3a8a;
+      border: 1px solid #3b82f6;
+      color: #93c5fd;
+    }
+
+    .log {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Frontend Authentication Test</h1>
+
+    <div class="test-section">
+      <h2>Test 1: Signup</h2>
+      <div>
+        <input type="text" id="signupName" placeholder="Name" value="Test User">
+        <input type="email" id="signupEmail" placeholder="Email" value="testuser@example.com">
+        <input type="password" id="signupPassword" placeholder="Password" value="TestPassword123">
+        <button onclick="testSignup()">Test Signup</button>
+      </div>
+      <div id="signupResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 2: Login</h2>
+      <div>
+        <input type="email" id="loginEmail" placeholder="Email" value="testuser@example.com">
+        <input type="password" id="loginPassword" placeholder="Password" value="TestPassword123">
+        <button onclick="testLogin()">Test Login</button>
+      </div>
+      <div id="loginResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 3: Duplicate Email Check</h2>
+      <div>
+        <button onclick="testDuplicateEmail()">Test Duplicate Email Detection</button>
+      </div>
+      <div id="duplicateResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test 4: Complete Flow</h2>
+      <div>
+        <button onclick="testCompleteFlow()">Run Complete Authentication Flow</button>
+      </div>
+      <div id="completeResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Server Status</h2>
+      <div>
+        <button onclick="checkServerStatus()">Check Server Connection</button>
+      </div>
+      <div id="serverStatus" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = 'http://localhost:3000';
+
+    function showResult(elementId, message, type = 'info') {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.className = 'result ' + type;
+    }
+
+    function addLog(elementId, message) {
+      const element = document.getElementById(elementId);
+      const log = document.createElement('div');
+      log.className = 'log';
+      log.textContent = '> ' + message;
+      element.appendChild(log);
+    }
+
+    async function testSignup() {
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      showResult('signupResult', 'Sending signup request...', 'info');
+
+      try {
+        const response = await fetch(`${BASE_URL}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showResult('signupResult',
+            `✅ Signup Successful!\n\n` +
+            `User ID: ${data.user?.id || 'N/A'}\n` +
+            `Email: ${data.user?.email || email}\n` +
+            `Name: ${data.user?.name || name}\n` +
+            `Message: ${data.message || 'Account created successfully'}`,
+            'success'
+          );
+        } else {
+          showResult('signupResult',
+            `❌ Signup Failed\n\n` +
+            `Error: ${data.error || 'Unknown error'}\n` +
+            `Message: ${data.message || 'No message provided'}`,
+            'error'
+          );
+        }
+      } catch (error) {
+        showResult('signupResult',
+          `❌ Network Error\n\n` +
+          `Error: ${error.message}\n` +
+          `Please check if the server is running at ${BASE_URL}`,
+          'error'
+        );
+      }
+    }
+
+    async function testLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      showResult('loginResult', 'Sending login request...', 'info');
+
+      try {
+        const response = await fetch(`${BASE_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.token) {
+          showResult('loginResult',
+            `✅ Login Successful!\n\n` +
+            `Token: ${data.token.substring(0, 30)}...\n` +
+            `User ID: ${data.user?.id || 'N/A'}\n` +
+            `Email: ${data.user?.email || email}\n` +
+            `Name: ${data.user?.name || 'N/A'}\n` +
+            `Role: ${data.user?.role || 'user'}`,
+            'success'
+          );
+        } else {
+          showResult('loginResult',
+            `❌ Login Failed\n\n` +
+            `Error: ${data.error || 'Invalid credentials'}\n` +
+            `Message: ${data.message || 'Please check your email and password'}`,
+            'error'
+          );
+        }
+      } catch (error) {
+        showResult('loginResult',
+          `❌ Network Error\n\n` +
+          `Error: ${error.message}\n` +
+          `Please check if the server is running at ${BASE_URL}`,
+          'error'
+        );
+      }
+    }
+
+    async function testDuplicateEmail() {
+      const email = document.getElementById('signupEmail').value;
+
+      showResult('duplicateResult', 'Testing duplicate email detection...', 'info');
+
+      try {
+        // First signup
+        const signupResponse = await fetch(`${BASE_URL}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: 'Duplicate Test User',
+            email,
+            password: 'TestPassword123'
+          })
+        });
+
+        const signupData = await signupResponse.json();
+
+        if (signupData.success) {
+          addLog('duplicateResult', 'First signup successful');
+
+          // Try duplicate signup
+          const duplicateResponse = await fetch(`${BASE_URL}/auth/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: 'Another User',
+              email,
+              password: 'DifferentPassword456'
+            })
+          });
+
+          const duplicateData = await duplicateResponse.json();
+
+          if (!duplicateData.success && duplicateData.error === 'Email already registered') {
+            showResult('duplicateResult',
+              `✅ Duplicate Email Detection Working!\n\n` +
+              `First signup: Success\n` +
+              `Duplicate attempt: Correctly rejected\n` +
+              `Error message: "${duplicateData.error}"`,
+              'success'
+            );
+          } else {
+            showResult('duplicateResult',
+              `❌ Duplicate detection failed\n\n` +
+              `Expected: "Email already registered"\n` +
+              `Got: ${JSON.stringify(duplicateData)}`,
+              'error'
+            );
+          }
+        } else if (signupData.error === 'Email already registered') {
+          showResult('duplicateResult',
+            `✅ Email already exists (as expected)\n\n` +
+            `Message: "${signupData.error}"`,
+            'success'
+          );
+        } else {
+          showResult('duplicateResult',
+            `❌ Unexpected error\n\n` +
+            `${JSON.stringify(signupData)}`,
+            'error'
+          );
+        }
+      } catch (error) {
+        showResult('duplicateResult',
+          `❌ Network Error\n\n` +
+          `Error: ${error.message}`,
+          'error'
+        );
+      }
+    }
+
+    async function testCompleteFlow() {
+      const timestamp = Date.now();
+      const testEmail = `completeflow_${timestamp}@example.com`;
+      const testPassword = 'CompleteTest123';
+      const testName = 'Complete Flow Test User';
+
+      showResult('completeResult', 'Starting complete authentication flow test...', 'info');
+
+      try {
+        // Step 1: Signup
+        addLog('completeResult', `1. Signing up with email: ${testEmail}`);
+        const signupResponse = await fetch(`${BASE_URL}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: testName,
+            email: testEmail,
+            password: testPassword
+          })
+        });
+
+        const signupData = await signupResponse.json();
+
+        if (!signupData.success) {
+          showResult('completeResult',
+            `❌ Step 1 (Signup) Failed\n\n` +
+            `${JSON.stringify(signupData, null, 2)}`,
+            'error'
+          );
+          return;
+        }
+
+        addLog('completeResult', `✅ Signup successful - User ID: ${signupData.user?.id}`);
+
+        // Step 2: Login
+        addLog('completeResult', `2. Logging in with same credentials`);
+        const loginResponse = await fetch(`${BASE_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: testEmail,
+            password: testPassword
+          })
+        });
+
+        const loginData = await loginResponse.json();
+
+        if (!loginData.success || !loginData.token) {
+          showResult('completeResult',
+            `❌ Step 2 (Login) Failed\n\n` +
+            `${JSON.stringify(loginData, null, 2)}`,
+            'error'
+          );
+          return;
+        }
+
+        addLog('completeResult', `✅ Login successful - Token received`);
+
+        // Step 3: Verify token
+        addLog('completeResult', `3. Verifying token validity`);
+        const verifyResponse = await fetch(`${BASE_URL}/auth/verify`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${loginData.token}`,
+            'Content-Type': 'application/json',
+          }
+        });
+
+        const verifyData = await verifyResponse.json();
+
+        if (!verifyData.success) {
+          showResult('completeResult',
+            `❌ Step 3 (Token Verification) Failed\n\n` +
+            `${JSON.stringify(verifyData, null, 2)}`,
+            'error'
+          );
+          return;
+        }
+
+        addLog('completeResult', `✅ Token verification successful`);
+
+        // Step 4: Test duplicate email
+        addLog('completeResult', `4. Testing duplicate email detection`);
+        const duplicateResponse = await fetch(`${BASE_URL}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: 'Duplicate User',
+            email: testEmail,
+            password: 'DifferentPassword'
+          })
+        });
+
+        const duplicateData = await duplicateResponse.json();
+
+        if (duplicateData.success) {
+          showResult('completeResult',
+            `❌ Step 4 (Duplicate Check) Failed - Should have rejected duplicate email`,
+            'error'
+          );
+          return;
+        }
+
+        addLog('completeResult', `✅ Duplicate email correctly rejected`);
+
+        showResult('completeResult',
+          `🎉 COMPLETE AUTHENTICATION FLOW SUCCESSFUL!\n\n` +
+          `All 4 steps passed:\n` +
+          `1. ✅ Signup - User created successfully\n` +
+          `2. ✅ Login - Authenticated with token\n` +
+          `3. ✅ Token Verification - Token is valid\n` +
+          `4. ✅ Duplicate Detection - Prevents duplicate accounts\n\n` +
+          `Test Email: ${testEmail}\n` +
+          `User ID: ${signupData.user?.id}\n` +
+          `Token: ${loginData.token.substring(0, 30)}...`,
+          'success'
+        );
+
+      } catch (error) {
+        showResult('completeResult',
+          `❌ Complete Flow Failed\n\n` +
+          `Error: ${error.message}\n` +
+          `Stack: ${error.stack}`,
+          'error'
+        );
+      }
+    }
+
+    async function checkServerStatus() {
+      showResult('serverStatus', 'Checking server connection...', 'info');
+
+      try {
+        const response = await fetch(`${BASE_URL}/health`);
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+          showResult('serverStatus',
+            `✅ Server is running!\n\n` +
+            `Status: ${data.status}\n` +
+            `Timestamp: ${data.timestamp}\n` +
+            `Uptime: ${data.uptime} seconds`,
+            'success'
+          );
+        } else {
+          showResult('serverStatus',
+            `⚠️ Server responded but with unexpected status\n\n` +
+            `${JSON.stringify(data, null, 2)}`,
+            'info'
+          );
+        }
+      } catch (error) {
+        try {
+          // Try auth endpoint as fallback
+          const authResponse = await fetch(`${BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: 'test@test.com', password: 'test' })
+          });
+
+          if (authResponse.status === 400 || authResponse.status === 401) {
+            showResult('serverStatus',
+              `✅ Server is running (auth endpoint responded)\n\n` +
+              `Status: ${authResponse.status}\n` +
+              `Note: Got expected error for invalid credentials`,
+              'success'
+            );
+          } else {
+            showResult('serverStatus',
+              `⚠️ Server responded with status ${authResponse.status}\n\n` +
+              `This suggests the server is running but health endpoint may not exist`,
+              'info'
+            );
+          }
+        } catch (innerError) {
+          showResult('serverStatus',
+            `❌ Server is not reachable\n\n` +
+            `Error: ${error.message}\n` +
+            `Please ensure the server is running at ${BASE_URL}\n` +
+            `Run: node server.js`,
+            'error'
+          );
+        }
+      }
+    }
+
+    // Check server status on page load
+    window.onload = checkServerStatus;
+  </script>
+</body>
+
+</html>

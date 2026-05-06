@@ -1,5 +1,543 @@
 [
   {
+    "id": "CLM-2024-0015",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "akshayshinde1212@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 4 claims in the last 30 days (frequency burst detected)",
+      "User has 4 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "REJECTED",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T10:40:49.575Z",
+    "reviewedDate": "2026-05-06T13:48:03.565Z",
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 4 claims in the last 30 days (frequency burst detected), User has 4 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)",
+    "markedAsFraud": true
+  },
+  {
+    "id": "CLM-1778064049356",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "akshayshinde1212@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-2098 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T10:40:49.381Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0013",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "prabhakarshinde1223@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 2 claims in the last 30 days (frequency burst detected)",
+      "User has 2 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "REJECTED",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T08:37:13.875Z",
+    "reviewedDate": "2026-05-06T13:55:52.171Z",
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 2 claims in the last 30 days (frequency burst detected), User has 2 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)",
+    "markedAsFraud": true
+  },
+  {
+    "id": "CLM-1778056633825",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "prabhakarshinde1223@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-1934 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T08:37:13.838Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0011",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 10 claims in the last 30 days (frequency burst detected)",
+      "User has 7 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T07:20:50.520Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 10 claims in the last 30 days (frequency burst detected), User has 7 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778052050456",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-9483 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": null,
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T07:20:50.459Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0008",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 8 claims in the last 30 days (frequency burst detected)",
+      "User has 5 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T05:00:11.553Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 8 claims in the last 30 days (frequency burst detected), User has 5 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778043611519",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-9178 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 17,
+      "severity": "Minor"
+    },
+    "repairDetails": "Auto Car Soloutions",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T05:00:11.526Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0007",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "202678456",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 100,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "Claim amount (₹20,26,78,456) is significantly higher than user average (₹12,36,42,19,46,54,382.33) or exceeds ₹150,000 threshold",
+      "User has filed 6 claims in the last 30 days (frequency burst detected)",
+      "User has 3 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "AUTO_REJECT",
+    "breakdown": [
+      {
+        "factor": "Claim Amount Anomaly",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T04:59:12.368Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim amount (₹20,26,78,456) is significantly higher than user average (₹12,36,42,19,46,54,382.33) or exceeds ₹150,000 threshold, User has filed 6 claims in the last 30 days (frequency burst detected), User has 3 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778043552320",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-9178 (TATA nexon)",
+    "amount": "202678456",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": null,
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "panjab motors",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T04:59:12.325Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0005",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "741852",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 100,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "Claim amount (₹7,41,852) is significantly higher than user average (₹18,54,63,24,11,26,496.5) or exceeds ₹150,000 threshold",
+      "User has filed 4 claims in the last 30 days (frequency burst detected)",
+      "User has 1 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "AUTO_REJECT",
+    "breakdown": [
+      {
+        "factor": "Claim Amount Anomaly",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-04-28T09:57:32.245Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim amount (₹7,41,852) is significantly higher than user average (₹18,54,63,24,11,26,496.5) or exceeds ₹150,000 threshold, User has filed 4 claims in the last 30 days (frequency burst detected), User has 1 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1777370252207",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-6273 (TATA nexon)",
+    "amount": "741852",
+    "incidentDate": "2026-04-28",
+    "description": "Data extracted via OCR.\nPolicy #: Number\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "[ Petey umber Potcy Period Etective Date\n| E— TT e—— CC TIT TTT e— CCC)\nNamed Insured and Address Agency Information = ]\nomaTAN 00K CLASSIC INSURANCE COMPANY\nJane por 101 Busnes ave i\nPolicy Number Policy Period Effective Date\nABC1234567 10/23/2018 ~ 10/23/2019 12:01 a.m. Standard Time ~ 10/23/2018\n",
+      "amount": null,
+      "policyNumber": "Number",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-04-28T09:57:32.211Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0004",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 40,
+    "fraudSeverity": "high",
+    "fraudFlags": [
+      "User has filed 2 claims in the last 30 days (frequency burst detected)",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "STANDARD_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-04-26T08:25:05.304Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 2 claims in the last 30 days (frequency burst detected), Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-2024-0013",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "20257",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 10,
+    "advancedRiskScore": 15,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 0,
+      "frequencyBurst": 0,
+      "policyTiming": 0,
+      "userHistory": 0,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 5
+    },
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "Claim description is too vague or missing details"
+    ],
+    "status": "APPROVED",
+    "routingPriority": "AUTO_APPROVE",
+    "investigationStatus": "NOT_REQUIRED",
+    "breakdown": [
+      {
+        "factor": "Weak Evidence",
+        "score": 10
+      }
+    ],
+    "submittedDate": "2026-04-24T05:25:17.470Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "Claim description is too vague or missing details",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 85,
+      "tamperingScore": 5,
+      "riskLevel": "low",
+      "fieldQuality": {
+        "policyNumber": 90,
+        "amount": 80,
+        "date": 75
+      }
+    },
+    "investigationNotes": [],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-24T05:25:17.470Z",
+        "user": "rahul singh",
+        "details": "New claim submitted"
+      }
+    ]
+  },
+  {
     "id": "CLM-2024-0012",
     "userName": "rahul singh",
     "userEmail": "rahulxyz@gmail.com",
@@ -8,6 +546,19 @@
     "validationStatus": "COMPLETED",
     "issues": [],
     "fraudScore": 50,
+    "advancedRiskScore": 65,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 30,
+      "frequencyBurst": 0,
+      "policyTiming": 25,
+      "userHistory": 0,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 0
+    },
     "fraudSeverity": "high",
     "fraudFlags": [
       "Claim amount is significantly higher than expected baseline or average",
@@ -15,6 +566,8 @@
       "Claim description is too vague or missing details"
     ],
     "status": "MANUAL_REVIEW",
+    "routingPriority": "ENHANCED_REVIEW",
+    "investigationStatus": "PENDING",
     "breakdown": [
       {
         "factor": "Amount Anomaly",
@@ -32,7 +585,33 @@
     "submittedDate": "2026-04-21T06:39:02.480Z",
     "reviewedDate": null,
     "adminNotes": null,
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim filed for high amount shortly after policy start/activity, Claim description is too vague or missing details"
+    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim filed for high amount shortly after policy start/activity, Claim description is too vague or missing details",
+    "ocrValidation": {
+      "success": true,
+      "confidence": 70,
+      "tamperingScore": 15,
+      "riskLevel": "medium",
+      "fieldQuality": {
+        "policyNumber": 75,
+        "amount": 60,
+        "date": 65
+      }
+    },
+    "investigationNotes": [],
+    "auditTrail": [
+      {
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-21T06:39:02.480Z",
+        "user": "rahul singh",
+        "details": "New claim submitted"
+      },
+      {
+        "action": "RISK_ASSESSMENT",
+        "timestamp": "2026-04-21T06:40:00.000Z",
+        "user": "System",
+        "details": "High risk detected - flagged for enhanced review"
+      }
+    ]
   },
   {
     "id": "CLM-2024-0011",
@@ -43,6 +622,19 @@
     "validationStatus": "COMPLETED",
     "issues": [],
     "fraudScore": 75,
+    "advancedRiskScore": 85,
+    "riskBreakdown": {
+      "claimAmountAnomaly": 30,
+      "frequencyBurst": 25,
+      "policyTiming": 0,
+      "userHistory": 30,
+      "documentQuality": 10,
+      "geographicAnomaly": 0,
+      "timePattern": 0,
+      "duplicateDetection": 0,
+      "behavioralPattern": 0,
+      "thirdPartyData": 0
+    },
     "fraudSeverity": "critical",
     "fraudFlags": [
       "Claim amount is significantly higher than expected baseline or average",
@@ -51,6 +643,8 @@
       "Too many claims filed by this user in a short period of time"
     ],
     "status": "REJECTED",
+    "routingPriority": "AUTO_REJECT",
+    "investigationStatus": "COMPLETED",
     "breakdown": [
       {
         "factor": "Amount Anomaly",
@@ -72,288 +666,50 @@
     "submittedDate": "2026-04-20T04:51:18.988Z",
     "reviewedDate": null,
     "adminNotes": null,
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, User has a history of rejected or fraudulent claims, Claim description is too vague or missing details, Too many claims filed by this user in a short period of time"
-  },
-  {
-    "id": "CLM-2024-0010",
-    "userName": "Prabhakar Shivaji Shinde",
-    "userEmail": "shindeprabhakar686@gmail.com",
-    "claimType": "home",
-    "policyId": "POL-HOME-7426 (Columbus villa)",
-    "amount": "741852963741852963",
-    "incidentDate": "2026-04-19",
-    "description": "Data extracted via OCR.\nPolicy #: Number\n",
-    "aiPrediction": "damage_home",
-    "extractedData": {
+    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, User has a history of rejected or fraudulent claims, Claim description is too vague or missing details, Too many claims filed by this user in a short period of time",
+    "ocrValidation": {
       "success": true,
-      "extractedText": "[ Petey umber Potcy Period Etective Date\n| E— TT e—— CC TIT TTT e— CCC)\nNamed Insured and Address Agency Information = ]\nomaTAN 00K CLASSIC INSURANCE COMPANY\nJane por 101 Busnes ave i\nPolicy Number Policy Period Effective Date\nABC1234567 10/23/2018 ~ 10/23/2019 12:01 a.m. Standard Time ~ 10/23/2018\n",
-      "amount": null,
-      "policyNumber": "Number",
-      "date": null
+      "confidence": 55,
+      "tamperingScore": 25,
+      "riskLevel": "high",
+      "fieldQuality": {
+        "policyNumber": 50,
+        "amount": 45,
+        "date": 40
+      }
     },
-    "carDamage": null,
-    "status": "REJECTED",
-    "breakdown": [
+    "investigationNotes": [
       {
-        "factor": "Amount Anomaly",
-        "score": 20
-      },
-      {
-        "factor": "Frequency Burst",
-        "score": 15
-      },
-      {
-        "factor": "Duplicate Detection",
-        "score": 25
+        "id": "note-001",
+        "adminId": "admin1",
+        "adminName": "Fraud Investigator",
+        "content": "Multiple high-value claims from same user within short period",
+        "timestamp": "2026-04-20T05:00:00.000Z",
+        "tags": [
+          "suspicious_pattern",
+          "high_frequency"
+        ]
       }
     ],
-    "submittedDate": "2026-04-19T15:23:55.459Z",
-    "reviewedDate": "2026-04-19T15:25:13.332Z",
-    "adminNotes": null,
-    "fraudScore": 60,
-    "fraudSeverity": "high",
-    "fraudFlags": [
-      "Claim amount is significantly higher than expected baseline or average",
-      "Too many claims filed by this user in a short period of time",
-      "Duplicate description or evidence detected across multiple claims"
-    ],
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Too many claims filed by this user in a short period of time, Duplicate description or evidence detected across multiple claims"
-  },
-  {
-    "id": "CLM-2024-0009",
-    "userName": "Prabhakar Shivaji Shinde",
-    "userEmail": "shindeprabhakar686@gmail.com",
-    "claimType": "vehicle",
-    "policyId": "POL-VEHI-2875 (Custom NEXON)",
-    "amount": "500000",
-    "incidentDate": "2026-04-19",
-    "description": "Data extracted via OCR.\nPolicy #: NUMBER\n",
-    "aiPrediction": "damage_vehicle",
-    "extractedData": {
-      "success": true,
-      "extractedText": "[ Petey umber Potcy Period Etective Date\n| E— TT e—— CC TIT TTT e— CCC)\nNamed Insured and Address Agency Information = ]\nomaTAN 00K CLASSIC INSURANCE COMPANY\nJane por 101 Busnes ave i\nPolicy Number Policy Period Effective Date\nABC1234567 10/23/2018 ~ 10/23/2019 12:01 a.m. Standard Time ~ 10/23/2018\n",
-      "amount": null,
-      "policyNumber": "Number",
-      "date": null
-    },
-    "carDamage": {
-      "percentage": 17,
-      "severity": "Minor"
-    },
-    "repairDetails": "tata motors service center",
-    "status": "APPROVED",
-    "breakdown": [
+    "auditTrail": [
       {
-        "factor": "Amount Anomaly",
-        "score": 20
+        "action": "CLAIM_SUBMITTED",
+        "timestamp": "2026-04-20T04:51:18.988Z",
+        "user": "Prabhakar Shivaji Shinde",
+        "details": "New claim submitted"
       },
       {
-        "factor": "Frequency Burst",
-        "score": 15
-      }
-    ],
-    "submittedDate": "2026-04-19T10:20:02.645Z",
-    "reviewedDate": "2026-04-19T10:26:01.098Z",
-    "adminNotes": null,
-    "fraudScore": 35,
-    "fraudSeverity": "high",
-    "fraudFlags": [
-      "Claim amount is significantly higher than expected baseline or average",
-      "Too many claims filed by this user in a short period of time"
-    ],
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Too many claims filed by this user in a short period of time"
-  },
-  {
-    "id": "CLM-2024-0008",
-    "userName": "Prabhakar Shivaji Shinde",
-    "userEmail": "shindeprabhakar686@gmail.com",
-    "claimType": "vehicle",
-    "amount": "741258963214569845",
-    "validationStatus": "MANUAL_REVIEW",
-    "issues": [],
-    "fraudScore": 30,
-    "fraudSeverity": "high",
-    "fraudFlags": [
-      "Claim amount is significantly higher than expected baseline or average",
-      "Claim description is too vague or missing details"
-    ],
-    "status": "MANUAL_REVIEW",
-    "breakdown": [
-      {
-        "factor": "Amount Anomaly",
-        "score": 20
+        "action": "AUTO_REJECTED",
+        "timestamp": "2026-04-20T04:52:00.000Z",
+        "user": "System",
+        "details": "Claim auto-rejected due to critical risk score (85)"
       },
       {
-        "factor": "Weak Evidence",
-        "score": 10
+        "action": "INVESTIGATION_STARTED",
+        "timestamp": "2026-04-20T05:00:00.000Z",
+        "user": "admin1",
+        "details": "Fraud investigation initiated"
       }
-    ],
-    "submittedDate": "2026-04-19T06:58:04.346Z",
-    "reviewedDate": null,
-    "adminNotes": null,
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim description is too vague or missing details"
-  },
-  {
-    "id": "CLM-2024-0007",
-    "userName": "Prabhakar Shivaji Shinde",
-    "userEmail": "shindeprabhakar686@gmail.com",
-    "claimType": "vehicle",
-    "policyId": "POL-VEHI-2875 (Custom NEXON)",
-    "amount": "741258963214569845",
-    "incidentDate": "2026-04-19",
-    "description": "Data extracted via OCR.\nPolicy #: Number\n",
-    "aiPrediction": null,
-    "extractedData": {
-      "success": true,
-      "extractedText": "[ Petey umber Potcy Period Etective Date\n| E— TT e—— CC TIT TTT e— CCC)\nNamed Insured and Address Agency Information = ]\nomaTAN 00K CLASSIC INSURANCE COMPANY\nJane por 101 Busnes ave i\nPolicy Number Policy Period Effective Date\nABC1234567 10/23/2018 ~ 10/23/2019 12:01 a.m. Standard Time ~ 10/23/2018\n",
-      "amount": null,
-      "policyNumber": "Number",
-      "date": null
-    },
-    "carDamage": {
-      "percentage": 63,
-      "severity": "Moderate"
-    },
-    "repairDetails": "hadapsar motors",
-    "status": "APPROVED",
-    "breakdown": [
-      {
-        "factor": "Amount Anomaly",
-        "score": 20
-      },
-      {
-        "factor": "Policy Timing",
-        "score": 20
-      }
-    ],
-    "submittedDate": "2026-04-19T06:58:04.332Z",
-    "reviewedDate": "2026-04-19T10:25:58.481Z",
-    "adminNotes": null,
-    "fraudScore": 40,
-    "fraudSeverity": "high",
-    "fraudFlags": [
-      "Claim amount is significantly higher than expected baseline or average",
-      "Claim filed for high amount shortly after policy start/activity"
-    ],
-    "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim filed for high amount shortly after policy start/activity"
-  },
-  {
-    "id": "CLM-2024-0006",
-    "claimType": "vehicle",
-    "insuranceType": "comprehensive",
-    "amount": 5000,
-    "description": "Test claim for persistence verification",
-    "incidentDate": "2026-04-18",
-    "incidentLocation": "Test City",
-    "policyNumber": "POL-12345",
-    "vehicleMake": "Toyota",
-    "vehicleModel": "Camry",
-    "vehicleYear": 2022,
-    "damageDescription": "Front bumper damage",
-    "status": "APPROVED",
-    "breakdown": [],
-    "submittedDate": "2026-04-19T05:55:49.919Z",
-    "reviewedDate": null,
-    "adminNotes": null,
-    "fraudScore": 0,
-    "fraudSeverity": "low",
-    "fraudFlags": [
-      "Claim details align with policy limits and OCR verification"
-    ],
-    "fraudExplanation": "Claim details align with policy limits and OCR verification"
-  },
-  {
-    "claimId": "CLM-2024-8721",
-    "userId": "user1",
-    "userName": "John Doe",
-    "email": "john@example.com",
-    "claimType": "Auto Insurance",
-    "amount": 5250,
-    "status": "MANUAL_REVIEW",
-    "fraudScore": 45,
-    "fraudSeverity": "medium",
-    "fraudFlags": [
-      "Unusual claim amount",
-      "Multiple claims in short period"
-    ],
-    "submittedDate": "2026-04-16T05:52:08.600Z",
-    "reviewedDate": null,
-    "incidentLocation": "Mumbai",
-    "policyNumber": "POL-2024-001",
-    "adminNotes": "Needs manual verification due to high amount"
-  },
-  {
-    "claimId": "CLM-2024-8650",
-    "userId": "user2",
-    "userName": "Jane Smith",
-    "email": "jane@example.com",
-    "claimType": "Health Insurance",
-    "amount": 2100,
-    "status": "APPROVED",
-    "fraudScore": 12,
-    "fraudSeverity": "low",
-    "fraudFlags": [],
-    "submittedDate": "2026-04-14T05:52:08.601Z",
-    "reviewedDate": "2026-04-15T05:52:08.601Z",
-    "incidentLocation": "Delhi",
-    "policyNumber": "POL-2024-002",
-    "adminNotes": "Claim approved after document verification"
-  },
-  {
-    "claimId": "CLM-2024-8543",
-    "userId": "user3",
-    "userName": "Robert Johnson",
-    "email": "robert@example.com",
-    "claimType": "Home Insurance",
-    "amount": 12500,
-    "status": "REJECTED",
-    "fraudScore": 78,
-    "fraudSeverity": "high",
-    "fraudFlags": [
-      "Suspicious documentation",
-      "Previous fraudulent claim history"
-    ],
-    "submittedDate": "2026-04-12T05:52:08.601Z",
-    "reviewedDate": "2026-04-13T05:52:08.601Z",
-    "incidentLocation": "Bangalore",
-    "policyNumber": "POL-2024-003",
-    "adminNotes": "Rejected due to fraudulent activity detected"
-  },
-  {
-    "claimId": "CLM-2024-8401",
-    "userId": "user4",
-    "userName": "Sarah Williams",
-    "email": "sarah@example.com",
-    "claimType": "Travel Insurance",
-    "amount": 3200,
-    "status": "APPROVED",
-    "fraudScore": 8,
-    "fraudSeverity": "low",
-    "fraudFlags": [],
-    "submittedDate": "2026-04-09T05:52:08.601Z",
-    "reviewedDate": "2026-04-10T05:52:08.601Z",
-    "incidentLocation": "Pune",
-    "policyNumber": "POL-2024-004",
-    "adminNotes": "Standard claim, processed quickly"
-  },
-  {
-    "claimId": "CLM-2024-8325",
-    "userId": "user5",
-    "userName": "Michael Brown",
-    "email": "michael@example.com",
-    "claimType": "Auto Insurance",
-    "amount": 7800,
-    "status": "MANUAL_REVIEW",
-    "fraudScore": 62,
-    "fraudSeverity": "medium",
-    "fraudFlags": [
-      "Unusual timing",
-      "Inconsistent accident details"
-    ],
-    "submittedDate": "2026-04-18T05:52:08.601Z",
-    "reviewedDate": null,
-    "incidentLocation": "Mumbai",
-    "policyNumber": "POL-2024-005",
-    "adminNotes": "Under investigation by fraud team"
+    ]
   }
 ]

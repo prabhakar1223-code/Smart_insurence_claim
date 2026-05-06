@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, Eye, CheckCircle, ShieldAlert, Loader2, X, AlertCircle, BarChart3, TrendingUp, Clock, Shield, AlertOctagon, Zap, Activity } from 'lucide-react';
+import { AlertTriangle, Eye, CheckCircle, ShieldAlert, Loader2, X, AlertCircle, BarChart3, TrendingUp, Clock, Shield, AlertOctagon, Zap, Activity, XCircle } from 'lucide-react';
 import { ClaimInvestigation } from './ClaimInvestigation';
 
 interface FraudAlertsProps {
@@ -11,17 +11,46 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
   const [selectedClaim, setSelectedClaim] = useState<any>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  // Filter: Claims with status "FRAUD_ALERT" OR risk score > 50, and not dismissed/rejected/approved
+  // Filter: Claims with status "UNDER_REVIEW" OR risk score >= 20, and not dismissed/rejected/approved
+  // New thresholds: <20 AUTO_APPROVE, 20-75 UNDER_REVIEW, >75 AUTO_REJECT
   const highRiskClaims = claims
     .filter((c: any) => {
       const status = (c.status || '').toUpperCase();
+      // Get the highest available risk score from multiple possible fields
       const fraudScore = c.fraudScore || 0;
+      const advancedRiskScore = c.advancedRiskScore || 0;
+      const riskScore = c.riskScore || 0;
+      const maxRiskScore = Math.max(fraudScore, advancedRiskScore, riskScore);
+
       const excludedStatuses = ['REJECTED', 'DISMISSED', 'APPROVED', 'BLOCKED'];
 
-      // Include if status is FRAUD_ALERT OR fraudScore > 50
-      return (status === 'FRAUD_ALERT' || fraudScore > 50) && !excludedStatuses.includes(status);
+      // Include if status is UNDER_REVIEW OR risk score is between 20-100
+      // 0-19: AUTO_APPROVE (exclude), 20-75: UNDER_REVIEW (include), 76-100: AUTO_REJECT (include)
+      const shouldIncludeByScore = maxRiskScore >= 20 && maxRiskScore <= 100;
+      const shouldIncludeByStatus = status === 'UNDER_REVIEW' ||
+        status === 'FRAUD_ALERT' || // Keep backward compatibility
+        status === 'AUTO_REJECT';
+
+      return (shouldIncludeByStatus || shouldIncludeByScore) && !excludedStatuses.includes(status);
     })
-    .sort((a: any, b: any) => (b.fraudScore || 0) - (a.fraudScore || 0));
+    .sort((a: any, b: any) => {
+      // First sort by submission date (newest first)
+      const dateA = a.submittedDate ? new Date(a.submittedDate).getTime() : 0;
+      const dateB = b.submittedDate ? new Date(b.submittedDate).getTime() : 0;
+
+      if (dateB !== dateA) {
+        return dateB - dateA; // Newest first
+      }
+
+      // If same date, sort by highest risk score
+      const getMaxScore = (claim: any) => {
+        const fraudScore = claim.fraudScore || 0;
+        const advancedRiskScore = claim.advancedRiskScore || 0;
+        const riskScore = claim.riskScore || 0;
+        return Math.max(fraudScore, advancedRiskScore, riskScore);
+      };
+      return getMaxScore(b) - getMaxScore(a);
+    });
 
   const handleAction = async (claimId: string, status: string, markedAsFraud?: boolean) => {
     if (!onUpdateStatus) return;
@@ -30,19 +59,29 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
     setActionLoading(null);
   };
 
+  // Helper function to get maximum risk score from a claim
+  const getMaxRiskScore = (claim: any) => {
+    const fraudScore = claim.fraudScore || 0;
+    const advancedRiskScore = claim.advancedRiskScore || 0;
+    const riskScore = claim.riskScore || 0;
+    return Math.max(fraudScore, advancedRiskScore, riskScore);
+  };
+
   const getSeverityLabel = (score: number) => {
-    if (score >= 90) return { label: 'CRITICAL', class: 'text-red-500', iconBg: 'bg-red-500/20', iconColor: 'text-red-500' };
-    if (score >= 80) return { label: 'HIGH', class: 'text-yellow-500', iconBg: 'bg-yellow-500/20', iconColor: 'text-yellow-500' };
-    return { label: 'ELEVATED', class: 'text-yellow-400', iconBg: 'bg-yellow-400/20', iconColor: 'text-yellow-400' };
+    // Match the updated risk score thresholds
+    if (score >= 76) return { label: 'CRITICAL', class: 'text-red-500', iconBg: 'bg-red-500/20', iconColor: 'text-red-500' };
+    if (score >= 20) return { label: 'HIGH', class: 'text-orange-500', iconBg: 'bg-orange-500/20', iconColor: 'text-orange-500' };
+    return { label: 'MINIMAL', class: 'text-green-500', iconBg: 'bg-green-500/20', iconColor: 'text-green-500' };
   };
 
   const totalAlerts = highRiskClaims.length;
-  const criticalCount = highRiskClaims.filter((c: any) => (c.fraudScore || 0) >= 90).length;
-  const reviewCount = highRiskClaims.filter((c: any) => (c.status || '').toUpperCase() === 'REVIEWING').length;
+  const criticalCount = highRiskClaims.filter((c: any) => getMaxRiskScore(c) >= 76).length;
+  const highCount = highRiskClaims.filter((c: any) => getMaxRiskScore(c) >= 20 && getMaxRiskScore(c) < 76).length;
+  const reviewCount = highRiskClaims.filter((c: any) => (c.status || '').toUpperCase() === 'REVIEWING' || (c.status || '').toUpperCase() === 'UNDER_REVIEW').length;
   const dismissedCount = highRiskClaims.filter((c: any) => ['DISMISSED', 'REJECTED'].includes((c.status || '').toUpperCase())).length;
 
   return (
-    <div className="p-6 space-y-8 animate-in fade-in duration-500 bg-gradient-to-br from-[#0B1220] via-[#0f172a] to-[#030712] min-h-screen text-gray-200 relative overflow-hidden">
+    <div className="p-6 space-y-8 animate-in fade-in duration-500 bg-gradient-to-br from-[#0B1220] via-[#0f172a] to-[#030712] min-h-screen text-gray-200 relative">
       {/* Custom styles for animations */}
       <style>{`
         @keyframes float {
@@ -220,81 +259,63 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
           </div>
         ) : (
           highRiskClaims.map((claim: any, index: number) => {
-            const severity = getSeverityLabel(claim.fraudScore || 0);
+            const maxScore = getMaxRiskScore(claim);
+            const severity = getSeverityLabel(maxScore);
             const isFinalized = ['APPROVED', 'REJECTED', 'BLOCKED', 'DISMISSED'].includes((claim.status || '').toUpperCase());
             const score = claim.fraudScore || 0;
 
             return (
               <div
                 key={claim.id}
-                className="bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-8 mb-7 flex flex-col md:flex-row justify-between items-stretch w-full shadow-2xl transition-all duration-500 hover:shadow-3xl hover:-translate-y-1 hover:border-gray-700 group relative overflow-hidden"
+                className="bg-[#111827] border border-slate-700 rounded-xl p-6 mb-6 flex flex-col lg:flex-row w-full shadow-lg transition-all duration-300 hover:shadow-xl"
               >
-                {/* Decorative accent */}
-                <div className={`absolute top-0 left-0 w-1 h-full ${score >= 90 ? 'bg-red-500' : score >= 80 ? 'bg-yellow-500' : 'bg-orange-500'}`}></div>
-
-                {/* Left Section */}
-                <div className="flex-1 flex flex-col md:flex-row items-start gap-4 md:gap-7 pl-0 md:pl-5">
-                  {/* Fraud Icon with animation */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-red-500/20 to-pink-500/20 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <AlertTriangle className="w-8 h-8 text-red-400 animate-pulse" />
+                {/* Left Section ~70% */}
+                <div className="flex-1 lg:w-8/12 flex flex-col lg:flex-row gap-6">
+                  {/* Warning Icon Box */}
+                  <div className="flex-shrink-0">
+                    <div className="p-3 rounded-lg border border-yellow-500 bg-yellow-500/10 flex items-center justify-center">
+                      <AlertTriangle className="w-6 h-6 text-yellow-500" />
+                    </div>
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-4">
-                      <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">Duplicate Claim Detected</h3>
-                      <span className="px-4 py-1.5 bg-gradient-to-r from-blue-900/40 to-purple-900/40 text-blue-300 text-sm font-bold rounded-full border border-blue-700/30">
-                        FRD-{String(claim.id).slice(-3) || '001'}
-                      </span>
-                      <span className={`px-4 py-1.5 ${severity.iconBg} ${severity.class} text-sm font-bold rounded-full`}>
-                        {severity.label} RISK
-                      </span>
+                    {/* Title and Alert ID */}
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-white">Duplicate Claim</h3>
+                      <p className="text-gray-400 text-sm mt-1">Alert ID: FRD-{String(claim.id).slice(-3) || '001'}</p>
                     </div>
-                    <p className="text-gray-300 text-base mb-6 leading-relaxed">
-                      <span className="font-semibold text-white">AI Detection:</span> Multiple claims submitted with identical damage photos, similar claim amounts, and overlapping submission timelines.
+
+                    {/* Description */}
+                    <p className="text-gray-300 text-base mb-5 leading-relaxed">
+                      Multiple claims submitted with identical damage photos, similar claim amounts, and overlapping submission timelines.
                     </p>
 
-                    {/* Tags - Enhanced */}
-                    <div className="flex flex-wrap gap-3 mb-7">
-                      <span className="px-4 py-2 bg-gradient-to-r from-red-900/30 to-pink-900/30 text-red-300 text-sm font-semibold rounded-lg border border-red-700/30 flex items-center gap-2">
-                        <AlertCircle size={14} />
+                    {/* Tags Row */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
                         Multiple submissions
                       </span>
-                      <span className="px-4 py-2 bg-gradient-to-r from-orange-900/30 to-amber-900/30 text-orange-300 text-sm font-semibold rounded-lg border border-orange-700/30 flex items-center gap-2">
-                        <Eye size={14} />
+                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
                         Same damage photos
                       </span>
-                      <span className="px-4 py-2 bg-gradient-to-r from-purple-900/30 to-violet-900/30 text-purple-300 text-sm font-semibold rounded-lg border border-purple-700/30 flex items-center gap-2">
-                        <BarChart3 size={14} />
+                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
                         Similar amounts
-                      </span>
-                      <span className="px-4 py-2 bg-gradient-to-r from-blue-900/30 to-cyan-900/30 text-blue-300 text-sm font-semibold rounded-lg border border-blue-700/30 flex items-center gap-2">
-                        <Clock size={14} />
-                        Recent activity
                       </span>
                     </div>
 
-                    {/* Details Row - Enhanced */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="p-4 rounded-xl bg-gray-900/50 border border-gray-800">
-                        <p className="text-gray-400 text-sm font-medium mb-2 flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-                          Claim ID
-                        </p>
-                        <p className="text-blue-300 font-mono font-bold text-xl truncate">{claim.id || 'N/A'}</p>
+                    {/* Bottom Row: Claim ID, User Name, Detection Date */}
+                    <div className="flex flex-wrap gap-10 pt-4 border-t border-slate-800">
+                      <div>
+                        <p className="text-gray-400 text-sm font-medium">Claim ID</p>
+                        <p className="text-white font-mono font-bold">{claim.id || 'N/A'}</p>
                       </div>
-                      <div className="p-4 rounded-xl bg-gray-900/50 border border-gray-800">
-                        <p className="text-gray-400 text-sm font-medium mb-2 flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
-                          User Name
-                        </p>
-                        <p className="text-white font-semibold text-xl truncate">{claim.userName || claim.user || 'Unknown User'}</p>
+                      <div>
+                        <p className="text-gray-400 text-sm font-medium">User Name</p>
+                        <p className="text-white font-semibold">{claim.userName || claim.user || 'Unknown User'}</p>
                       </div>
-                      <div className="p-4 rounded-xl bg-gray-900/50 border border-gray-800">
-                        <p className="text-gray-400 text-sm font-medium mb-2 flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 bg-purple-500 rounded-full"></span>
-                          Detected Date
-                        </p>
-                        <p className="text-white font-semibold text-xl">
+                      <div>
+                        <p className="text-gray-400 text-sm font-medium">Detection Date</p>
+                        <p className="text-white font-semibold">
                           {claim.submittedDate ? new Date(claim.submittedDate).toLocaleDateString() : 'N/A'}
                         </p>
                       </div>
@@ -302,24 +323,35 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
                   </div>
                 </div>
 
-                {/* Right Section */}
-                <div className="w-full md:w-[280px] flex flex-col justify-between pl-0 md:pl-7 border-t md:border-t-0 md:border-l border-gray-800 pt-6 md:pt-0 mt-6 md:mt-0">
-                  {/* Risk Score Box - Enhanced */}
-                  <div className="p-5 rounded-xl bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 mb-6 shadow-inner">
-                    <div className="flex justify-between items-center mb-4">
-                      <p className="text-gray-300 text-base font-medium flex items-center gap-2">
-                        <Activity size={16} className="text-red-400" />
-                        Risk Score
-                      </p>
-                      <p className="text-white font-bold text-3xl bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">{score}</p>
+                {/* Right Section ~30% */}
+                <div className="lg:w-4/12 flex flex-col gap-4 mt-6 lg:mt-0 lg:pl-6 lg:border-l lg:border-slate-800">
+                  {/* Status Badges */}
+                  <div className="flex gap-2">
+                    <span className="px-3 py-1 bg-yellow-500/20 text-yellow-300 text-sm font-bold rounded-full border border-yellow-500/30">
+                      High
+                    </span>
+                    <span className="px-3 py-1 bg-orange-500/20 text-orange-300 text-sm font-bold rounded-full border border-orange-500/30">
+                      Pending
+                    </span>
+                  </div>
+
+                  {/* Risk Score Box */}
+                  <div className="bg-slate-900 border border-slate-700 rounded-xl p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="text-gray-300 text-base font-medium">Risk Score</p>
+                      <div className="flex items-baseline">
+                        <span className="text-red-500 text-4xl font-bold">{score}</span>
+                        <span className="text-gray-400 text-lg">/100</span>
+                      </div>
                     </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden mb-3">
+                    {/* Progress Bar */}
+                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden mb-1">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500"
+                        className="h-full bg-red-500 rounded-full"
                         style={{ width: `${Math.min(score, 100)}%` }}
                       ></div>
                     </div>
-                    <div className="flex justify-between text-sm text-gray-400">
+                    <div className="flex justify-between text-xs text-gray-400">
                       <span>Low</span>
                       <span>Medium</span>
                       <span>High</span>
@@ -327,45 +359,38 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
                     </div>
                   </div>
 
-                  {/* Action Buttons - Enhanced */}
-                  <div className="flex flex-col gap-4">
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-3">
                     {!isFinalized ? (
                       <>
                         <button
                           onClick={() => {
                             setSelectedClaim(claim);
-                            handleAction(claim.id, 'REVIEWING');
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                           }}
                           disabled={actionLoading === claim.id}
-                          className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white py-4 px-5 rounded-xl flex items-center justify-center gap-3 text-base font-bold transition-all shadow-lg disabled:opacity-50 hover:scale-[1.03] active:scale-[0.98] group/btn"
+                          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50"
                         >
-                          {actionLoading === claim.id ? (
-                            <Loader2 size={18} className="animate-spin" />
-                          ) : (
-                            <>
-                              <Eye size={18} className="group-hover/btn:animate-pulse" />
-                              Investigate Claim
-                            </>
-                          )}
+                          <Eye size={18} />
+                          Investigate
                         </button>
                         <button
                           onClick={() => handleAction(claim.id, 'REJECTED', true)}
                           disabled={actionLoading === claim.id}
-                          className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-gray-300 border border-gray-700 py-4 px-5 rounded-xl flex items-center justify-center gap-3 text-base font-bold transition-all shadow-lg disabled:opacity-50 hover:scale-[1.03] active:scale-[0.98] group/btn"
+                          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50"
                         >
                           {actionLoading === claim.id ? (
                             <Loader2 size={18} className="animate-spin" />
                           ) : (
                             <>
-                              <X size={18} className="group-hover/btn:rotate-90 transition-transform" />
-                              Dismiss Alert
+                              <XCircle size={18} />
+                              Reject
                             </>
                           )}
                         </button>
                       </>
                     ) : (
-                      <div className="w-full py-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-800 rounded-xl text-center">
+                      <div className="w-full py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-center">
                         <p className="text-base font-bold text-gray-300 capitalize">
                           Status: <span className="text-emerald-400">{claim.status}</span>
                         </p>

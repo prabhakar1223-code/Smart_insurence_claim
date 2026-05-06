@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Auth Test</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    .result {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Authentication Test</h1>
+
+  <div>
+    <h3>Test Signup</h3>
+    <button onclick="testSignup()">Test Signup</button>
+    <div id="signupResult" class="result"></div>
+  </div>
+
+  <div>
+    <h3>Test Login</h3>
+    <button onclick="testLogin()">Test Login with Same Credentials</button>
+    <div id="loginResult" class="result"></div>
+  </div>
+
+  <script>
+    const testEmail = `test${Date.now()}@example.com`;
+    const testPassword = 'password123';
+    const testName = 'Test User';
+
+    function showResult(elementId, message, isError = false) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.className = 'result ' + (isError ? 'error' : 'success');
+    }
+
+    async function testSignup() {
+      showResult('signupResult', 'Testing signup...');
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: testName,
+            email: testEmail,
+            password: testPassword
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          showResult('signupResult', `✅ Signup successful! User ID: ${data.user.id}`);
+          console.log('Signup response:', data);
+        } else {
+          showResult('signupResult', `❌ Signup failed: ${data.error || data.message}`, true);
+          console.log('Signup error:', data);
+        }
+      } catch (error) {
+        showResult('signupResult', `❌ Network error: ${error.message}`, true);
+        console.error('Network error:', error);
+      }
+    }
+
+    async function testLogin() {
+      showResult('loginResult', 'Testing login...');
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: testEmail,
+            password: testPassword
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          showResult('loginResult', `✅ Login successful! Token received: ${data.token.substring(0, 20)}...`);
+          console.log('Login response:', data);
+        } else {
+          showResult('loginResult', `❌ Login failed: ${data.error || data.message}`, true);
+          console.log('Login error:', data);
+        }
+      } catch (error) {
+        showResult('loginResult', `❌ Network error: ${error.message}`, true);
+        console.error('Network error:', error);
+      }
+    }
+
+    console.log('Test credentials:', { testEmail, testPassword, testName });
+  </script>
+</body>
+
+</html>

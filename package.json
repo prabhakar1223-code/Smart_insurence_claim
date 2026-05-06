@@ -37,6 +37,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@teachablemachine/image": "^0.8.5",
     "@tensorflow/tfjs": "^4.22.0",
+    "axios": "^1.16.0",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",

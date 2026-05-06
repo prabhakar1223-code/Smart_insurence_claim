@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X, User, FileText, IndianRupee, Shield, Calendar, Eye,
   CheckCircle, XCircle, ShieldAlert, AlertTriangle, ShieldCheck,
-  Loader2, ShieldOff, MessageSquare, MapPin, Stethoscope, BarChart, Info
+  Loader2, ShieldOff, MessageSquare, MapPin, Stethoscope, BarChart, Info,
+  Clock, Tag, AlertCircle, TrendingUp, FileSearch, Users, Download, Filter
 } from 'lucide-react';
 
 interface Props {
@@ -15,6 +16,35 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
   const [adminNotes, setAdminNotes] = useState(claim?.adminNotes || '');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [actionDone, setActionDone] = useState(false);
+  const [investigationTags, setInvestigationTags] = useState<string[]>(claim?.investigationTags || []);
+  const [newTag, setNewTag] = useState('');
+  const [showTimeline, setShowTimeline] = useState(false);
+  const [showOcrDetails, setShowOcrDetails] = useState(false);
+  const [investigationData, setInvestigationData] = useState<any>(null);
+  const [loadingInvestigation, setLoadingInvestigation] = useState(false);
+
+  // Fetch enhanced investigation data
+  useEffect(() => {
+    const fetchInvestigationData = async () => {
+      if (!claim?.id && !claim?.claimId) return;
+
+      setLoadingInvestigation(true);
+      try {
+        const claimId = claim.id || claim.claimId;
+        const response = await fetch(`/api/investigation/${claimId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setInvestigationData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch investigation data:', error);
+      } finally {
+        setLoadingInvestigation(false);
+      }
+    };
+
+    fetchInvestigationData();
+  }, [claim]);
 
   if (!claim) return null;
 
@@ -74,8 +104,161 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
     setActionDone(true);
   };
 
+  // Enhanced OCR analysis helper
+  const getOCRConfidenceColor = (confidence: number) => {
+    if (confidence >= 80) return 'text-emerald-400 bg-emerald-500/15';
+    if (confidence >= 60) return 'text-amber-400 bg-amber-500/15';
+    return 'text-red-400 bg-red-500/15';
+  };
+
+  const getOCRConfidenceLabel = (confidence: number) => {
+    if (confidence >= 80) return 'High Confidence';
+    if (confidence >= 60) return 'Medium Confidence';
+    return 'Low Confidence';
+  };
+
+  const getTamperingSeverity = (score: number, returnType: 'object' | 'color' | 'class' = 'object') => {
+    if (score >= 50) {
+      if (returnType === 'color') return 'bg-red-500';
+      if (returnType === 'class') return 'text-red-400 bg-red-500/15';
+      return { label: 'High Tampering Risk', color: 'text-red-400 bg-red-500/15' };
+    }
+    if (score >= 20) {
+      if (returnType === 'color') return 'bg-amber-500';
+      if (returnType === 'class') return 'text-amber-400 bg-amber-500/15';
+      return { label: 'Medium Tampering Risk', color: 'text-amber-400 bg-amber-500/15' };
+    }
+    if (returnType === 'color') return 'bg-emerald-500';
+    if (returnType === 'class') return 'text-emerald-400 bg-emerald-500/15';
+    return { label: 'Low Tampering Risk', color: 'text-emerald-400 bg-emerald-500/15' };
+  };
+
+  // Tag management
+  const handleAddTag = () => {
+    if (newTag.trim() && !investigationTags.includes(newTag.trim())) {
+      setInvestigationTags([...investigationTags, newTag.trim()]);
+      setNewTag('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setInvestigationTags(investigationTags.filter(tag => tag !== tagToRemove));
+  };
+
+  // Generate investigation timeline data
+  const generateInvestigationTimeline = () => {
+    const timeline = [];
+
+    // Claim submission
+    if (claim.submittedDate) {
+      timeline.push({
+        time: new Date(claim.submittedDate).toLocaleString(),
+        event: 'Claim Submitted',
+        icon: '📄',
+        color: 'bg-blue-500/20 text-blue-400'
+      });
+    }
+
+    // Risk assessment
+    if (claim.assessedDate || claim.submittedDate) {
+      timeline.push({
+        time: new Date(claim.assessedDate || claim.submittedDate).toLocaleString(),
+        event: 'Risk Assessment Completed',
+        icon: '📊',
+        color: 'bg-purple-500/20 text-purple-400'
+      });
+    }
+
+    // OCR processing
+    if (claim.extractedData?.processingTime) {
+      timeline.push({
+        time: new Date(claim.extractedData.processingTime).toLocaleString(),
+        event: 'OCR Processing Completed',
+        icon: '🔍',
+        color: 'bg-green-500/20 text-green-400'
+      });
+    }
+
+    // Admin review if exists
+    if (claim.reviewedBy) {
+      timeline.push({
+        time: claim.reviewedAt ? new Date(claim.reviewedAt).toLocaleString() : 'Recently',
+        event: `Reviewed by ${claim.reviewedBy}`,
+        icon: '👤',
+        color: 'bg-amber-500/20 text-amber-400'
+      });
+    }
+
+    return timeline;
+  };
+
+  // Generate investigation recommendations
+  const generateInvestigationRecommendations = () => {
+    const recommendations = [];
+    const score = claim.fraudScore || claim.riskScore || 0;
+
+    // Based on risk score
+    if (score >= 70) {
+      recommendations.push({
+        title: 'Immediate Investigation Required',
+        description: 'High risk score indicates potential fraud. Assign to senior investigator.',
+        priority: 'HIGH',
+        icon: '🚨'
+      });
+      recommendations.push({
+        title: 'Verify Supporting Documents',
+        description: 'Request original documents and cross-check with third-party sources.',
+        priority: 'HIGH',
+        icon: '📋'
+      });
+    } else if (score >= 30) {
+      recommendations.push({
+        title: 'Detailed Document Review',
+        description: 'Review all uploaded documents for inconsistencies.',
+        priority: 'MEDIUM',
+        icon: '🔍'
+      });
+      recommendations.push({
+        title: 'User History Check',
+        description: 'Review user claim history for patterns.',
+        priority: 'MEDIUM',
+        icon: '📊'
+      });
+    }
+
+    // Based on OCR results
+    if (claim.extractedData?.validation?.tamperingScore > 30) {
+      recommendations.push({
+        title: 'Document Tampering Check',
+        description: 'OCR detected potential document manipulation. Verify document authenticity.',
+        priority: 'HIGH',
+        icon: '⚠️'
+      });
+    }
+
+    // Based on amount
+    if (claim.amount > 500000) {
+      recommendations.push({
+        title: 'High Amount Verification',
+        description: 'Large claim amount requires additional verification steps.',
+        priority: 'MEDIUM',
+        icon: '💰'
+      });
+    }
+
+    // General recommendations
+    recommendations.push({
+      title: 'Complete Investigation Notes',
+      description: 'Document all findings and decisions for audit trail.',
+      priority: 'LOW',
+      icon: '📝'
+    });
+
+    return recommendations;
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start sm:items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start sm:items-center justify-center z-50 p-2 sm:p-4">
       <div className="bg-card w-full max-w-4xl rounded-2xl border border-border shadow-2xl my-4 sm:my-8 animate-in zoom-in-95 duration-300 max-h-[90vh] flex flex-col">
 
         {/* Header - Sticky */}
@@ -96,8 +279,8 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
           </button>
         </div>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+        {/* Scrollable Content Area with custom scrollbar */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 scrollbar-custom scrollbar-custom-smooth">
 
           {/* Action Done Banner */}
           {actionDone && (
@@ -226,32 +409,200 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
             )}
           </div>
 
-          {/* Section C: OCR Extracted Data */}
+          {/* Section C: Enhanced OCR Extracted Data */}
           <div className="bg-muted/20 border border-border rounded-xl p-4 sm:p-5">
-            <h3 className="font-semibold text-sm mb-3">📊 OCR Extracted Data</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-sm flex items-center gap-2">
+                <FileSearch size={16} />
+                📊 OCR Extracted Data & Analysis
+              </h3>
+              <button
+                onClick={() => setShowOcrDetails(!showOcrDetails)}
+                className="text-xs px-3 py-1 rounded-full bg-background border border-border hover:bg-accent transition-colors"
+              >
+                {showOcrDetails ? 'Hide Details' : 'Show Details'}
+              </button>
+            </div>
+
             {claim.extractedData ? (
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                {claim.extractedData.amount != null && (
+              <div className="space-y-4">
+                {/* OCR Summary Header */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {claim.extractedData.amount != null && (
+                    <div className="bg-background border border-border rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground">Extracted Amount</p>
+                      <p className="font-bold">₹{Number(claim.extractedData.amount).toLocaleString('en-IN')}</p>
+                    </div>
+                  )}
+                  {claim.extractedData.policyNumber && (
+                    <div className="bg-background border border-border rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground">Policy Number</p>
+                      <p className="font-mono text-sm">{claim.extractedData.policyNumber}</p>
+                    </div>
+                  )}
+
+                  {/* OCR Confidence */}
                   <div className="bg-background border border-border rounded-lg p-3">
-                    <p className="text-xs text-muted-foreground">Extracted Amount</p>
-                    <p className="font-bold">₹{Number(claim.extractedData.amount).toLocaleString('en-IN')}</p>
+                    <p className="text-xs text-muted-foreground">OCR Confidence</p>
+                    <div className="flex items-center gap-2">
+                      <div className={`px-2 py-1 rounded-full text-xs font-medium ${getOCRConfidenceColor(claim.extractedData.ocrConfidence || 75)}`}>
+                        {getOCRConfidenceLabel(claim.extractedData.ocrConfidence || 75)}
+                      </div>
+                      <span className="font-bold">{Math.round(claim.extractedData.ocrConfidence || 75)}%</span>
+                    </div>
                   </div>
-                )}
-                {claim.extractedData.policyNumber && (
+
+                  {/* OCR Risk Level */}
                   <div className="bg-background border border-border rounded-lg p-3">
-                    <p className="text-xs text-muted-foreground">Policy Number</p>
-                    <p className="font-mono text-sm">{claim.extractedData.policyNumber}</p>
+                    <p className="text-xs text-muted-foreground">OCR Risk Level</p>
+                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${(claim.extractedData.riskLevel || 'LOW') === 'HIGH' || (claim.extractedData.riskLevel || 'LOW') === 'CRITICAL'
+                      ? 'bg-red-500/15 text-red-400'
+                      : (claim.extractedData.riskLevel || 'LOW') === 'MEDIUM'
+                        ? 'bg-amber-500/15 text-amber-400'
+                        : 'bg-emerald-500/15 text-emerald-400'
+                      }`}>
+                      {claim.extractedData.riskLevel || 'LOW'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Enhanced OCR Details (Collapsible) */}
+                {showOcrDetails && (
+                  <div className="bg-background border border-border rounded-lg p-4 space-y-4">
+                    {/* Validation Status */}
+                    <div>
+                      <p className="text-xs font-medium mb-2 flex items-center gap-2">
+                        <ShieldCheck size={14} />
+                        OCR Validation Status
+                      </p>
+                      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${claim.extractedData.validation?.isValid
+                        ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
+                        : 'bg-red-500/15 text-red-400 border border-red-500/20'
+                        }`}>
+                        {claim.extractedData.validation?.isValid ? (
+                          <>
+                            <CheckCircle size={14} />
+                            <span className="text-xs font-medium">Validated</span>
+                          </>
+                        ) : (
+                          <>
+                            <XCircle size={14} />
+                            <span className="text-xs font-medium">Validation Issues</span>
+                          </>
+                        )}
+                      </div>
+
+                      {claim.extractedData.validation?.issues && claim.extractedData.validation.issues.length > 0 && (
+                        <div className="mt-2">
+                          <p className="text-xs text-muted-foreground mb-1">Issues Detected:</p>
+                          <ul className="text-xs space-y-1">
+                            {claim.extractedData.validation.issues.slice(0, 3).map((issue: string, idx: number) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <AlertCircle size={12} className="text-red-400 mt-0.5 flex-shrink-0" />
+                                <span>{issue}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Tampering Detection */}
+                    {claim.extractedData.validation?.tamperingScore && claim.extractedData.validation.tamperingScore > 0 && (
+                      <div>
+                        <p className="text-xs font-medium mb-2 flex items-center gap-2">
+                          <AlertTriangle size={14} className="text-amber-400" />
+                          Tampering Detection
+                        </p>
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1">
+                            <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full ${getTamperingSeverity(claim.extractedData.validation.tamperingScore, 'color')}`}
+                                style={{ width: `${Math.min(claim.extractedData.validation.tamperingScore, 100)}%` }}
+                              />
+                            </div>
+                            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                              <span>Low</span>
+                              <span>Medium</span>
+                              <span>High</span>
+                            </div>
+                          </div>
+                          <div className={`px-2 py-1 rounded-full text-xs font-medium ${getTamperingSeverity(claim.extractedData.validation.tamperingScore, 'class')}`}>
+                            Score: {claim.extractedData.validation.tamperingScore}
+                          </div>
+                        </div>
+                        {claim.extractedData.metadata?.tamperingIndicators && claim.extractedData.metadata.tamperingIndicators.length > 0 && (
+                          <p className="text-xs text-muted-foreground mt-2">
+                            Indicators: {claim.extractedData.metadata.tamperingIndicators.slice(0, 2).join(', ')}
+                            {claim.extractedData.metadata.tamperingIndicators.length > 2 && '...'}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Field Quality */}
+                    {claim.extractedData.validation?.fieldQuality && Object.keys(claim.extractedData.validation.fieldQuality).length > 0 && (
+                      <div>
+                        <p className="text-xs font-medium mb-2">Field Quality Assessment</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {Object.entries(claim.extractedData.validation.fieldQuality).slice(0, 6).map(([field, quality]: [string, any]) => (
+                            <div key={field} className="bg-gray-900/50 border border-gray-800 rounded p-2">
+                              <p className="text-xs text-muted-foreground truncate">{field}</p>
+                              <div className="flex items-center justify-between mt-1">
+                                <div className={`w-2 h-2 rounded-full ${quality >= 80 ? 'bg-emerald-500' :
+                                  quality >= 60 ? 'bg-amber-500' :
+                                    'bg-red-500'
+                                  }`} />
+                                <span className="text-xs font-medium ml-2">{quality}%</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Extracted Text Preview */}
+                    {claim.extractedData.extractedText && (
+                      <div>
+                        <p className="text-xs font-medium mb-2">Extracted Text Preview</p>
+                        <div className="bg-gray-900/50 border border-gray-800 rounded p-3 max-h-32 overflow-y-auto">
+                          <p className="text-xs text-foreground/70 whitespace-pre-wrap">
+                            {claim.extractedData.extractedText.length > 300
+                              ? claim.extractedData.extractedText.substring(0, 300) + '...'
+                              : claim.extractedData.extractedText}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
-                {claim.extractedData.extractedText && (
-                  <div className="col-span-2 bg-background border border-border rounded-lg p-3">
-                    <p className="text-xs text-muted-foreground mb-1">Extracted Text</p>
-                    <p className="text-xs text-foreground/70 whitespace-pre-wrap">{claim.extractedData.extractedText}</p>
-                  </div>
-                )}
+
+                {/* Quick Actions */}
+                <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
+                  <button className="text-xs px-3 py-1.5 rounded-lg bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 transition-colors flex items-center gap-2">
+                    <Download size={12} />
+                    Export OCR Report
+                  </button>
+                  <button className="text-xs px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-400 hover:bg-amber-500/25 transition-colors flex items-center gap-2">
+                    <FileSearch size={12} />
+                    Re-run OCR Analysis
+                  </button>
+                  <button className="text-xs px-3 py-1.5 rounded-lg bg-purple-500/15 text-purple-400 hover:bg-purple-500/25 transition-colors flex items-center gap-2">
+                    <BarChart size={12} />
+                    Compare with Database
+                  </button>
+                </div>
               </div>
             ) : (
-              <p className="text-muted-foreground text-xs py-4 text-center">No OCR data available.</p>
+              <div className="text-center py-6">
+                <FileText size={32} className="mx-auto mb-3 text-muted-foreground/50" />
+                <p className="text-muted-foreground text-sm mb-1">No OCR data available</p>
+                <p className="text-xs text-muted-foreground/70">This claim was processed without OCR extraction</p>
+                <button className="mt-3 text-xs px-4 py-1.5 rounded-lg bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 transition-colors">
+                  Run OCR Analysis Now
+                </button>
+              </div>
             )}
           </div>
 
@@ -404,7 +755,45 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
             )}
           </div>
 
-          {/* Section E: Admin Notes */}
+          {/* Section E: Investigation Recommendations */}
+          <div className="bg-muted/20 border border-border rounded-xl p-4 sm:p-5">
+            <h3 className="font-semibold text-sm mb-3 flex items-center gap-2"><FileSearch size={16} className="text-primary" /> Investigation Recommendations</h3>
+            <div className="space-y-3">
+              {generateInvestigationRecommendations().map((rec, idx) => (
+                <div key={idx} className={`p-3 rounded-lg border ${rec.priority === 'HIGH'
+                  ? 'bg-red-500/10 border-red-500/20'
+                  : rec.priority === 'MEDIUM'
+                    ? 'bg-amber-500/10 border-amber-500/20'
+                    : 'bg-blue-500/10 border-blue-500/20'
+                  }`}>
+                  <div className="flex items-start gap-3">
+                    <div className="text-lg">{rec.icon}</div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-medium">{rec.title}</h4>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${rec.priority === 'HIGH'
+                          ? 'bg-red-500/20 text-red-400'
+                          : rec.priority === 'MEDIUM'
+                            ? 'bg-amber-500/20 text-amber-400'
+                            : 'bg-blue-500/20 text-blue-400'
+                          }`}>
+                          {rec.priority} PRIORITY
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">{rec.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 pt-3 border-t border-border/30">
+              <p className="text-xs text-muted-foreground">
+                <span className="font-medium">Note:</span> These recommendations are generated based on AI analysis of risk factors, OCR results, and claim patterns.
+              </p>
+            </div>
+          </div>
+
+          {/* Section F: Admin Notes */}
           <div className="bg-muted/20 border border-border rounded-xl p-4 sm:p-5">
             <h3 className="font-semibold text-sm mb-3 flex items-center gap-2"><MessageSquare size={16} /> Internal Notes</h3>
             <textarea

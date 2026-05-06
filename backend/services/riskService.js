@@ -23,7 +23,7 @@ export function calculateRiskScore(validationResults, claimData, userHistory = [
 
   // 1. DAMAGE DETECTION RISK FACTORS (0-40 points)
   if (damageDetection) {
-    const damageRisk = calculateDamageRisk(damageDetection);
+    const damageRisk = calculateDamageRisk(damageDetection, claimData);
     riskScore += damageRisk.score;
     if (damageRisk.score > 0) {
       breakdown.push({ factor: "Damage Anomaly", score: damageRisk.score });
@@ -31,6 +31,12 @@ export function calculateRiskScore(validationResults, claimData, userHistory = [
     }
     if (damageRisk.warnings.length > 0) {
       warnings.push(...damageRisk.warnings);
+    }
+    
+    // Add low damage warning message
+    const { percentage, severity } = damageDetection;
+    if (percentage !== undefined && percentage < 20) {
+      warnings.push("Minor damage detected. Claim marked for additional verification.");
     }
   }
 
@@ -107,13 +113,13 @@ export function calculateRiskScore(validationResults, claimData, userHistory = [
 }
 
 // Damage Detection Risk Calculation
-function calculateDamageRisk(damageDetection) {
+function calculateDamageRisk(damageDetection, claimData = {}) {
   let score = 0;
   const reasons = [];
   const warnings = [];
 
   if (!damageDetection || damageDetection.status !== "OK") {
-    score += 15;
+    score += 5;
     reasons.push("Damage detection failed or inconclusive");
     return { score, reasons, warnings };
   }
@@ -122,25 +128,55 @@ function calculateDamageRisk(damageDetection) {
 
   // Low confidence in damage detection
   if (confidence < 0.6) {
-    score += 10;
+    score += 0;
     reasons.push(`Low confidence (${Math.round(confidence * 100)}%) in damage detection`);
   }
 
   // Severe damage with low claim amount (potential under-reporting)
   if (severity === 'SEVERE' && percentage > 50) {
-    score += 20;
+    score += 10;
     reasons.push(`Severe damage (${percentage}%) detected - requires thorough inspection`);
   }
 
   // No damage but claim filed
   if (severity === 'NO_DAMAGE' || percentage < 5) {
-    score += 25;
+    score += 20;
     reasons.push(`Claim filed for minimal or no damage (${percentage}%)`);
+    reasons.push("Minor vehicle damage");
+    reasons.push("Very low visible damage");
+    warnings.push("Minor damage detected. Claim marked for additional verification.");
+  }
+
+  // Low damage fraud factor - based on damage percentage
+  if (percentage >= 5 && percentage < 10) {
+    score += 15;
+    reasons.push(`Very small damage detected (${percentage}%)`);
+    reasons.push("Minor vehicle damage");
+    reasons.push("Claim amount not proportional to damage");
+    warnings.push("Minor damage detected. Claim marked for additional verification.");
+  } else if (percentage >= 10 && percentage < 20) {
+    score += 10;
+    reasons.push(`Minor damage claim (${percentage}%)`);
+    reasons.push("Minor vehicle damage");
+    reasons.push("Claim amount not proportional to damage");
+    warnings.push("Minor damage detected. Claim marked for additional verification.");
+  }
+
+  // Claim amount vs damage check
+  if (percentage !== undefined && percentage < 20 && claimData.amount) {
+    const claimAmount = Number(claimData.amount);
+    // Define "unusually high" as more than ₹50,000 for minor damage
+    if (!isNaN(claimAmount) && claimAmount > 50000) {
+      score += 15;
+      reasons.push(`Unusually high claim amount (₹${claimAmount.toLocaleString()}) for minor damage (${percentage}%)`);
+      reasons.push("Claim amount not proportional to damage");
+      warnings.push("Minor damage with high claim amount - requires additional verification");
+    }
   }
 
   // Inconsistent damage patterns
   if (severity === 'MODERATE' && percentage > 30 && confidence < 0.7) {
-    score += 15;
+    score += 5;
     reasons.push(`Moderate damage with inconsistent detection patterns`);
     warnings.push("Damage pattern may require manual verification");
   }
@@ -155,7 +191,7 @@ function calculateVehicleRisk(vehicleValidation) {
   const warnings = [];
 
   if (!vehicleValidation) {
-    score += 20;
+    score += 10;
     reasons.push("Vehicle validation not performed");
     return { score, reasons, warnings };
   }
@@ -164,7 +200,7 @@ function calculateVehicleRisk(vehicleValidation) {
 
   // Vehicle mismatch
   if (!match) {
-    score += 30;
+    score += 20;
     reasons.push("Uploaded vehicle does not match insured vehicle");
     if (block) {
       reasons.push("Vehicle mismatch is severe - claim should be blocked");
@@ -173,20 +209,20 @@ function calculateVehicleRisk(vehicleValidation) {
 
   // Partial match only
   if (match && matchType === 'partial') {
-    score += 15;
+    score += 5;
     reasons.push("Vehicle matches partially (brand or model only)");
     warnings.push("Verify vehicle details manually");
   }
 
   // Low confidence in vehicle detection
   if (confidence < 0.6) {
-    score += 10;
+    score += 0;
     reasons.push(`Low confidence (${Math.round(confidence * 100)}%) in vehicle detection`);
   }
 
   // Brand match only (higher risk than exact match)
   if (matchType === 'brand') {
-    score += 20;
+    score += 10;
     reasons.push("Only vehicle brand matches - model differs");
   }
 
@@ -200,7 +236,7 @@ function calculateOCRRisk(ocrExtraction, claimData) {
   const warnings = [];
 
   if (!ocrExtraction || !ocrExtraction.success) {
-    score += 15;
+    score += 5;
     reasons.push("OCR extraction failed");
     return { score, reasons, warnings };
   }
@@ -209,7 +245,7 @@ function calculateOCRRisk(ocrExtraction, claimData) {
 
   // Low OCR confidence
   if (ocrConfidence < 50) {
-    score += 10;
+    score += 0;
     reasons.push(`Low OCR confidence (${Math.round(ocrConfidence)}%)`);
   }
 
@@ -223,10 +259,10 @@ function calculateOCRRisk(ocrExtraction, claimData) {
       const percentageDiff = (difference / claimAmount) * 100;
       
       if (percentageDiff > 10) {
-        score += 20;
+        score += 10;
         reasons.push(`Significant amount mismatch: Claim ₹${claimAmount} vs OCR ₹${ocrAmount} (${Math.round(percentageDiff)}% difference)`);
       } else if (percentageDiff > 5) {
-        score += 10;
+        score += 0;
         reasons.push(`Moderate amount mismatch: Claim ₹${claimAmount} vs OCR ₹${ocrAmount}`);
         warnings.push("Verify claimed amount against document");
       }
@@ -239,7 +275,7 @@ function calculateOCRRisk(ocrExtraction, claimData) {
     const normalizedOCR = fields.policyNumber.replace(/\s+/g, '').toUpperCase();
     
     if (normalizedClaim !== normalizedOCR) {
-      score += 25;
+      score += 15;
       reasons.push(`Policy number mismatch: Claim "${claimData.policyNumber}" vs OCR "${fields.policyNumber}"`);
     }
   }
@@ -253,7 +289,7 @@ function calculateOCRRisk(ocrExtraction, claimData) {
       const dayDiff = Math.abs((claimDate - ocrDate) / (1000 * 60 * 60 * 24));
       
       if (dayDiff > 7) {
-        score += 15;
+        score += 5;
         reasons.push(`Date discrepancy: Claim ${claimData.incidentDate} vs Document ${fields.date} (${Math.round(dayDiff)} days difference)`);
       }
     }
@@ -261,7 +297,7 @@ function calculateOCRRisk(ocrExtraction, claimData) {
 
   // Missing critical fields in OCR
   if (validation && !validation.isValid) {
-    score += validation.issues.length * 5;
+    score += validation.issues.length * 0;
     reasons.push(...validation.issues.map(issue => `OCR validation: ${issue}`));
   }
 
@@ -274,32 +310,32 @@ function calculatePolicyRisk(policyMatch, claimData) {
   const reasons = [];
 
   if (!policyMatch) {
-    score += 20;
+    score += 10;
     reasons.push("Policy validation not performed");
     return { score, reasons };
   }
 
   // Policy coverage mismatch
   if (policyMatch.coverageMismatch) {
-    score += 15;
+    score += 5;
     reasons.push(`Claim type "${claimData.type}" not covered by policy`);
   }
 
   // Policy expired
   if (policyMatch.expired) {
-    score += 25;
+    score += 15;
     reasons.push("Policy has expired");
   }
 
   // Claim amount exceeds policy limit
   if (policyMatch.exceedsLimit) {
-    score += 20;
+    score += 10;
     reasons.push(`Claim amount exceeds policy limit by ${policyMatch.excessPercentage}%`);
   }
 
   // Deductible not met
   if (policyMatch.deductibleNotMet) {
-    score += 10;
+    score += 0;
     reasons.push("Claim amount below deductible threshold");
   }
 
@@ -393,13 +429,13 @@ function calculateTimingRisk(claimData) {
   return { score, reasons };
 }
 
-// Determine Risk Status
+// Determine Risk Status - Updated to match new auto-routing thresholds
 function determineRiskStatus(score) {
-  if (score >= 70) return 'CRITICAL';
-  if (score >= 50) return 'HIGH_RISK';
-  if (score >= 30) return 'MEDIUM_RISK';
-  if (score >= 15) return 'LOW_RISK';
-  return 'SAFE';
+  if (score >= 76) return 'CRITICAL_RISK';
+  if (score >= 51) return 'HIGH_RISK';
+  if (score >= 36) return 'MEDIUM_RISK';
+  if (score >= 20) return 'LOW_RISK';
+  return 'VERY_LOW_RISK';
 }
 
 // Calculate Validation Confidence
@@ -416,21 +452,21 @@ function calculateValidationConfidence(validationResults) {
   return Math.round(averageConfidence * 100);
 }
 
-// Get Recommendation
+// Get Recommendation - Updated for new risk statuses
 function getRecommendation(score, status) {
-  if (status === 'CRITICAL') {
-    return 'BLOCK_CLAIM - Immediate manual investigation required';
+  if (status === 'CRITICAL_RISK') {
+    return 'AUTO_REJECT - Immediate rejection, fraud investigation required';
   }
   if (status === 'HIGH_RISK') {
-    return 'HOLD_CLAIM - Requires senior review before processing';
+    return 'ENHANCED_REVIEW - Assign to senior admin + fraud team';
   }
   if (status === 'MEDIUM_RISK') {
-    return 'PROCEED_WITH_CAUTION - Additional verification recommended';
+    return 'STANDARD_REVIEW - Normal admin review queue';
   }
   if (status === 'LOW_RISK') {
-    return 'PROCEED - Standard verification sufficient';
+    return 'FAST_TRACK - Quick admin review, priority queue';
   }
-  return 'AUTO_APPROVE - Minimal risk detected';
+  return 'AUTO_APPROVE - Instant approval, no human review';
 }
 
 // Utility function to process complete claim validation

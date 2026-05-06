@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Auth Test</title>
+</head>
+
+<body>
+  <h1>Authentication Test</h1>
+  <div>
+    <button onclick="testSignup()">Test Signup</button>
+    <button onclick="testLogin()">Test Login</button>
+  </div>
+  <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+
+  <script>
+    async function testSignup() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = 'Testing signup...';
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Origin': 'http://localhost:5173'
+          },
+          body: JSON.stringify({
+            name: 'Test User ' + Date.now(),
+            email: 'test' + Date.now() + '@example.com',
+            password: 'password123'
+          })
+        });
+
+        const data = await response.json();
+        resultDiv.innerHTML = `Signup Response: ${response.status}<br>${JSON.stringify(data, null, 2)}`;
+      } catch (error) {
+        resultDiv.innerHTML = `Error: ${error.message}`;
+      }
+    }
+
+    async function testLogin() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = 'Testing login...';
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Origin': 'http://localhost:5173'
+          },
+          body: JSON.stringify({
+            email: 'test@example.com',
+            password: 'password123'
+          })
+        });
+
+        const data = await response.json();
+        resultDiv.innerHTML = `Login Response: ${response.status}<br>${JSON.stringify(data, null, 2)}`;
+      } catch (error) {
+        resultDiv.innerHTML = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+
+</html>

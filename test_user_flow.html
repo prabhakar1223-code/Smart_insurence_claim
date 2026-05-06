@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User Flow Test</title>
+</head>
+
+<body>
+  <h1>Testing User Login/Signup Flow</h1>
+  <div>
+    <h3>Test 1: Direct fetch (simulating UserLogin.tsx)</h3>
+    <button onclick="testDirectFetch()">Test Direct Fetch</button>
+  </div>
+  <div>
+    <h3>Test 2: Fetch with error handling</h3>
+    <button onclick="testWithErrorHandling()">Test with Error Handling</button>
+  </div>
+  <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; white-space: pre-wrap;"></div>
+
+  <script>
+    async function testDirectFetch() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Testing direct fetch...';
+
+      try {
+        // This is exactly what UserLogin.tsx does
+        const response = await fetch('http://localhost:3000/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Flow Test User',
+            email: 'flow_test_' + Date.now() + '@example.com',
+            password: 'password123'
+          })
+        });
+
+        const data = await response.json();
+        resultDiv.textContent = `Success! Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+      } catch (error) {
+        resultDiv.textContent = `Error: ${error.name}: ${error.message}\nStack: ${error.stack}`;
+      }
+    }
+
+    async function testWithErrorHandling() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Testing with detailed error handling...';
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Error Test User',
+            email: 'error_test_' + Date.now() + '@example.com',
+            password: 'password123'
+          }),
+          mode: 'cors', // Explicitly set CORS mode
+          credentials: 'omit' // Explicitly omit credentials
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        resultDiv.textContent = `Success! Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+      } catch (error) {
+        resultDiv.textContent = `Detailed Error:\nName: ${error.name}\nMessage: ${error.message}\nType: ${error.constructor.name}`;
+
+        // Check for CORS specific error
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          resultDiv.textContent += '\n\nThis is likely a CORS error! The browser blocked the request.';
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

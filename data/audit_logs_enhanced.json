@@ -1,96 +1,5 @@
 [
   {
-    "id": 1778064049586,
-    "action": "CLAIM_SUBMITTED",
-    "user": "Prabhakar Shivaji Shinde",
-    "details": "New claim CLM-2024-0015 submitted for ₹2025",
-    "timestamp": "2026-05-06T10:40:49.586Z"
-  },
-  {
-    "id": 1778064049392,
-    "action": "CLAIM_SUBMITTED",
-    "user": "Prabhakar Shivaji Shinde",
-    "details": "New claim CLM-1778064049356 submitted for ₹2025 via AI validation",
-    "timestamp": "2026-05-06T10:40:49.392Z"
-  },
-  {
-    "id": 1778056633879,
-    "action": "CLAIM_SUBMITTED",
-    "user": "Prabhakar Shivaji Shinde",
-    "details": "New claim CLM-2024-0013 submitted for ₹2025",
-    "timestamp": "2026-05-06T08:37:13.879Z"
-  },
-  {
-    "id": 1778056633842,
-    "action": "CLAIM_SUBMITTED",
-    "user": "Prabhakar Shivaji Shinde",
-    "details": "New claim CLM-1778056633825 submitted for ₹2025 via AI validation",
-    "timestamp": "2026-05-06T08:37:13.842Z"
-  },
-  {
-    "id": 1778052050522,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-2024-0011 submitted for ₹2025",
-    "timestamp": "2026-05-06T07:20:50.522Z"
-  },
-  {
-    "id": 1778052050464,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-1778052050456 submitted for ₹2025 via AI validation",
-    "timestamp": "2026-05-06T07:20:50.464Z"
-  },
-  {
-    "id": 1778043611559,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-2024-0008 submitted for ₹2025",
-    "timestamp": "2026-05-06T05:00:11.559Z"
-  },
-  {
-    "id": 1778043611531,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-1778043611519 submitted for ₹2025 via AI validation",
-    "timestamp": "2026-05-06T05:00:11.531Z"
-  },
-  {
-    "id": 1778043552371,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-2024-0007 submitted for ₹202678456",
-    "timestamp": "2026-05-06T04:59:12.371Z"
-  },
-  {
-    "id": 1778043552331,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-1778043552320 submitted for ₹202678456 via AI validation",
-    "timestamp": "2026-05-06T04:59:12.331Z"
-  },
-  {
-    "id": 1777370252250,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-2024-0005 submitted for ₹741852",
-    "timestamp": "2026-04-28T09:57:32.250Z"
-  },
-  {
-    "id": 1777370252215,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-1777370252207 submitted for ₹741852 via AI validation",
-    "timestamp": "2026-04-28T09:57:32.215Z"
-  },
-  {
-    "id": 1777191905308,
-    "action": "CLAIM_SUBMITTED",
-    "user": "rahul singh",
-    "details": "New claim CLM-2024-0004 submitted for ₹2025",
-    "timestamp": "2026-04-26T08:25:05.308Z"
-  },
-  {
     "id": "audit-001",
     "timestamp": "2026-04-26T08:00:00.000Z",
     "action": "CLAIM_SUBMITTED",
@@ -116,6 +25,10 @@
     "investigationTags": [
       "claim_submission",
       "auto_insurance"
+    ],
+    "relatedEntities": [
+      "user1",
+      "policy-AUTO-001"
     ]
   },
   {
@@ -157,6 +70,9 @@
     "investigationTags": [
       "risk_scoring",
       "decision_engine"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0013"
     ]
   },
   {
@@ -193,6 +109,10 @@
     "investigationTags": [
       "ocr_extraction",
       "document_processing"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0013",
+      "doc-001"
     ]
   },
   {
@@ -222,6 +142,9 @@
       "fraud_detection",
       "amount_anomaly",
       "high_risk"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0012"
     ]
   },
   {
@@ -255,6 +178,11 @@
       "investigation",
       "fraud_case",
       "high_priority"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0012",
+      "admin1",
+      "inv-001"
     ]
   },
   {
@@ -285,6 +213,11 @@
     "investigationTags": [
       "investigation_note",
       "documentation"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0012",
+      "inv-001",
+      "note-001"
     ]
   },
   {
@@ -314,6 +247,9 @@
       "auto_rejection",
       "fraud_prevention",
       "high_risk"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0012"
     ]
   },
   {
@@ -346,6 +282,11 @@
     "investigationTags": [
       "notification",
       "user_communication"
+    ],
+    "relatedEntities": [
+      "CLM-2024-0012",
+      "user2",
+      "notif-001"
     ]
   },
   {
@@ -372,6 +313,9 @@
     "investigationTags": [
       "authentication",
       "admin_access"
+    ],
+    "relatedEntities": [
+      "admin1"
     ]
   },
   {
@@ -408,6 +352,10 @@
       "reporting",
       "compliance",
       "analytics"
+    ],
+    "relatedEntities": [
+      "admin2",
+      "report-001"
     ]
   },
   {
@@ -437,7 +385,8 @@
       "system_alert",
       "volume_anomaly",
       "monitoring"
-    ]
+    ],
+    "relatedEntities": []
   },
   {
     "id": "audit-012",
@@ -472,6 +421,10 @@
     "investigationTags": [
       "policy_management",
       "underwriting"
+    ],
+    "relatedEntities": [
+      "policy-AUTO-001",
+      "admin3"
     ]
   }
 ]

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "note-001",
+    "claimId": "CLM-2024-0011",
+    "adminId": "admin1",
+    "adminName": "Fraud Investigator",
+    "content": "Multiple high-value claims from same user within short period. Pattern indicates potential fraud ring.",
+    "timestamp": "2026-04-20T05:00:00.000Z",
+    "tags": [
+      "suspicious_pattern",
+      "high_frequency",
+      "potential_fraud_ring"
+    ],
+    "priority": "high",
+    "status": "active",
+    "attachments": [],
+    "followUpActions": [
+      {
+        "action": "Request additional documentation",
+        "assignedTo": "admin2",
+        "dueDate": "2026-04-27T05:00:00.000Z",
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "id": "note-002",
+    "claimId": "CLM-2024-0010",
+    "adminId": "admin2",
+    "adminName": "Claims Adjuster",
+    "content": "Extremely high claim amount with poor OCR quality. Document appears tampered with based on digital analysis.",
+    "timestamp": "2026-04-19T15:24:00.000Z",
+    "tags": [
+      "excessive_amount",
+      "poor_documentation",
+      "tampering_suspected"
+    ],
+    "priority": "critical",
+    "status": "resolved",
+    "attachments": [
+      "ocr_analysis_report.pdf"
+    ],
+    "followUpActions": [
+      {
+        "action": "Verify policy authenticity with provider",
+        "assignedTo": "admin1",
+        "dueDate": "2026-04-22T15:24:00.000Z",
+        "status": "completed"
+      },
+      {
+        "action": "Flag user for enhanced monitoring",
+        "assignedTo": "system",
+        "dueDate": "2026-04-19T15:25:00.000Z",
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "id": "note-003",
+    "claimId": "CLM-2024-0012",
+    "adminId": "admin1",
+    "adminName": "Fraud Investigator",
+    "content": "Claim amount exceeds policy limits by 500%. Requires manual review and verification with underwriting department.",
+    "timestamp": "2026-04-21T06:45:00.000Z",
+    "tags": [
+      "policy_limit_exceeded",
+      "manual_review_required",
+      "underwriting"
+    ],
+    "priority": "high",
+    "status": "active",
+    "attachments": [
+      "policy_document.pdf",
+      "claim_comparison.xlsx"
+    ],
+    "followUpActions": [
+      {
+        "action": "Contact underwriting department",
+        "assignedTo": "admin3",
+        "dueDate": "2026-04-23T06:45:00.000Z",
+        "status": "in_progress"
+      }
+    ]
+  },
+  {
+    "id": "note-004",
+    "claimId": "CLM-2024-0013",
+    "adminId": "admin3",
+    "adminName": "Senior Adjuster",
+    "content": "Standard claim with minor documentation issues. Approved after verification with repair shop.",
+    "timestamp": "2026-04-24T05:30:00.000Z",
+    "tags": [
+      "standard_claim",
+      "minor_issues",
+      "approved"
+    ],
+    "priority": "low",
+    "status": "resolved",
+    "attachments": [
+      "repair_shop_verification.pdf"
+    ],
+    "followUpActions": []
+  },
+  {
+    "id": "note-005",
+    "claimId": "CLM-2024-0009",
+    "adminId": "admin2",
+    "adminName": "Claims Adjuster",
+    "content": "Fast-track approved due to valid documentation and reasonable claim amount. User has good history.",
+    "timestamp": "2026-04-19T10:26:00.000Z",
+    "tags": [
+      "fast_track",
+      "good_history",
+      "approved"
+    ],
+    "priority": "low",
+    "status": "resolved",
+    "attachments": [],
+    "followUpActions": []
+  },
+  {
+    "id": "note-006",
+    "claimId": "CLM-2024-0011",
+    "adminId": "admin1",
+    "adminName": "Fraud Investigator",
+    "content": "Cross-referenced with external fraud databases. User appears in multiple insurance company watchlists.",
+    "timestamp": "2026-04-20T05:30:00.000Z",
+    "tags": [
+      "external_database_match",
+      "watchlist",
+      "confirmed_fraud"
+    ],
+    "priority": "critical",
+    "status": "active",
+    "attachments": [
+      "fraud_database_report.pdf"
+    ],
+    "followUpActions": [
+      {
+        "action": "Report to insurance fraud bureau",
+        "assignedTo": "admin1",
+        "dueDate": "2026-04-27T05:30:00.000Z",
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "id": "note-007",
+    "claimId": "CLM-2024-0010",
+    "adminId": "admin2",
+    "adminName": "Claims Adjuster",
+    "content": "OCR analysis shows signs of digital manipulation in policy document. Metadata indicates file was edited multiple times.",
+    "timestamp": "2026-04-19T15:26:00.000Z",
+    "tags": [
+      "digital_manipulation",
+      "metadata_analysis",
+      "tampering_confirmed"
+    ],
+    "priority": "critical",
+    "status": "resolved",
+    "attachments": [
+      "metadata_analysis.json",
+      "digital_forensics_report.pdf"
+    ],
+    "followUpActions": [
+      {
+        "action": "Blacklist user from future claims",
+        "assignedTo": "system",
+        "dueDate": "2026-04-19T15:27:00.000Z",
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "id": "note-008",
+    "claimId": "CLM-2024-0012",
+    "adminId": "admin3",
+    "adminName": "Senior Adjuster",
+    "content": "Underwriting confirms policy is valid but claim amount requires special approval. Escalated to management.",
+    "timestamp": "2026-04-21T07:00:00.000Z",
+    "tags": [
+      "escalated",
+      "management_review",
+      "special_approval"
+    ],
+    "priority": "medium",
+    "status": "active",
+    "attachments": [
+      "underwriting_response.pdf"
+    ],
+    "followUpActions": [
+      {
+        "action": "Await management decision",
+        "assignedTo": "management",
+        "dueDate": "2026-04-25T07:00:00.000Z",
+        "status": "pending"
+      }
+    ]
+  }
+]
