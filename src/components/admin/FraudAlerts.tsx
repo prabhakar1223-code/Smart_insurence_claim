@@ -265,137 +265,177 @@ export function FraudAlerts({ claims = [], onUpdateStatus }: FraudAlertsProps) {
             const score = claim.fraudScore || 0;
 
             return (
-              <div
-                key={claim.id}
-                className="bg-[#111827] border border-slate-700 rounded-xl p-6 mb-6 flex flex-col lg:flex-row w-full shadow-lg transition-all duration-300 hover:shadow-xl"
-              >
-                {/* Left Section ~70% */}
-                <div className="flex-1 lg:w-8/12 flex flex-col lg:flex-row gap-6">
-                  {/* Warning Icon Box */}
-                  <div className="flex-shrink-0">
-                    <div className="p-3 rounded-lg border border-yellow-500 bg-yellow-500/10 flex items-center justify-center">
-                      <AlertTriangle className="w-6 h-6 text-yellow-500" />
-                    </div>
-                  </div>
+              <div key={claim.id} className="relative group mb-6">
+                {/* Glowing border effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10"></div>
 
-                  <div className="flex-1">
-                    {/* Title and Alert ID */}
-                    <div className="mb-3">
-                      <h3 className="text-xl font-bold text-white">Duplicate Claim</h3>
-                      <p className="text-gray-400 text-sm mt-1">Alert ID: FRD-{String(claim.id).slice(-3) || '001'}</p>
-                    </div>
+                {/* Premium Dark Navy Card with glowing borders */}
+                <div className="bg-gradient-to-br from-[#0B1220] via-[#0f172a] to-[#0A0F1C] border border-slate-800/50 rounded-2xl p-6 flex flex-col lg:flex-row w-full shadow-2xl transition-all duration-300 hover:shadow-3xl hover:border-blue-500/30 hover:scale-[1.005] relative overflow-hidden min-h-[250px]">
+                  {/* Glowing corner accents */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-16 translate-x-16 blur-3xl"></div>
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/5 rounded-full translate-y-16 -translate-x-16 blur-3xl"></div>
 
-                    {/* Description */}
-                    <p className="text-gray-300 text-base mb-5 leading-relaxed">
-                      Multiple claims submitted with identical damage photos, similar claim amounts, and overlapping submission timelines.
-                    </p>
-
-                    {/* Tags Row */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
-                        Multiple submissions
-                      </span>
-                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
-                        Same damage photos
-                      </span>
-                      <span className="px-3 py-1 bg-slate-800 border border-blue-500 text-white text-sm font-medium rounded-full">
-                        Similar amounts
-                      </span>
-                    </div>
-
-                    {/* Bottom Row: Claim ID, User Name, Detection Date */}
-                    <div className="flex flex-wrap gap-10 pt-4 border-t border-slate-800">
-                      <div>
-                        <p className="text-gray-400 text-sm font-medium">Claim ID</p>
-                        <p className="text-white font-mono font-bold">{claim.id || 'N/A'}</p>
+                  {/* Left Section ~70% */}
+                  <div className="flex-1 lg:w-8/12 flex flex-col lg:flex-row gap-5">
+                    {/* Warning Icon Box with glow */}
+                    <div className="flex-shrink-0">
+                      <div className="p-4 rounded-xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 flex items-center justify-center shadow-lg shadow-yellow-500/10">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-yellow-500/20 rounded-full blur-md animate-pulse"></div>
+                          <AlertTriangle className="w-8 h-8 text-yellow-400 relative" />
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-gray-400 text-sm font-medium">User Name</p>
-                        <p className="text-white font-semibold">{claim.userName || claim.user || 'Unknown User'}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-400 text-sm font-medium">Detection Date</p>
-                        <p className="text-white font-semibold">
-                          {claim.submittedDate ? new Date(claim.submittedDate).toLocaleDateString() : 'N/A'}
+                    </div>
+
+                    <div className="flex-1 flex flex-col gap-5">
+                      {/* Top: Title, Alert ID, Short Description */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <h3 className="text-2xl font-bold text-white bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent truncate max-w-[70%]">
+                            Fraud Alert #{String(claim.id).slice(-6) || '000001'}
+                          </h3>
+                          <span className="px-3 py-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30 text-red-300 text-xs font-bold rounded-full animate-pulse flex-shrink-0">
+                            LIVE
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm text-gray-400">
+                          <span className="px-2 py-0.5 bg-slate-800/50 border border-slate-700 rounded text-xs">
+                            Alert ID: FRD-{String(claim.id).slice(-3) || '001'}
+                          </span>
+                          <span className="text-gray-500">•</span>
+                          <span className="text-gray-500">Detected: {claim.submittedDate ? new Date(claim.submittedDate).toLocaleDateString() : 'N/A'}</span>
+                        </div>
+                        <p className="text-gray-300 text-base line-clamp-2 leading-relaxed">
+                          {claim.description || 'Multiple claims submitted with identical damage photos, similar claim amounts, and overlapping submission timelines.'}
                         </p>
                       </div>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Right Section ~30% */}
-                <div className="lg:w-4/12 flex flex-col gap-4 mt-6 lg:mt-0 lg:pl-6 lg:border-l lg:border-slate-800">
-                  {/* Status Badges */}
-                  <div className="flex gap-2">
-                    <span className="px-3 py-1 bg-yellow-500/20 text-yellow-300 text-sm font-bold rounded-full border border-yellow-500/30">
-                      High
-                    </span>
-                    <span className="px-3 py-1 bg-orange-500/20 text-orange-300 text-sm font-bold rounded-full border border-orange-500/30">
-                      Pending
-                    </span>
-                  </div>
-
-                  {/* Risk Score Box */}
-                  <div className="bg-slate-900 border border-slate-700 rounded-xl p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="text-gray-300 text-base font-medium">Risk Score</p>
-                      <div className="flex items-baseline">
-                        <span className="text-red-500 text-4xl font-bold">{score}</span>
-                        <span className="text-gray-400 text-lg">/100</span>
-                      </div>
-                    </div>
-                    {/* Progress Bar */}
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden mb-1">
-                      <div
-                        className="h-full bg-red-500 rounded-full"
-                        style={{ width: `${Math.min(score, 100)}%` }}
-                      ></div>
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-400">
-                      <span>Low</span>
-                      <span>Medium</span>
-                      <span>High</span>
-                      <span>Critical</span>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col gap-3">
-                    {!isFinalized ? (
-                      <>
-                        <button
-                          onClick={() => {
-                            setSelectedClaim(claim);
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          disabled={actionLoading === claim.id}
-                          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50"
-                        >
-                          <Eye size={18} />
-                          Investigate
-                        </button>
-                        <button
-                          onClick={() => handleAction(claim.id, 'REJECTED', true)}
-                          disabled={actionLoading === claim.id}
-                          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50"
-                        >
-                          {actionLoading === claim.id ? (
-                            <Loader2 size={18} className="animate-spin" />
-                          ) : (
+                      {/* Middle: Fraud Tags in horizontal chips */}
+                      <div className="flex flex-wrap gap-2">
+                        {(claim.fraudFlags && Array.isArray(claim.fraudFlags) && claim.fraudFlags.length > 0
+                          ? claim.fraudFlags.slice(0, 3).map((flag: string, idx: number) => (
+                            <span key={idx} className="px-3 py-1.5 bg-gradient-to-r from-red-500/15 to-red-600/10 border border-red-500/30 text-red-300 text-sm font-medium rounded-lg">
+                              {flag.length > 30 ? flag.substring(0, 30) + '...' : flag}
+                            </span>
+                          ))
+                          : (
                             <>
-                              <XCircle size={18} />
-                              Reject
+                              <span className="px-3 py-1.5 bg-gradient-to-r from-red-500/15 to-red-600/10 border border-red-500/30 text-red-300 text-sm font-medium rounded-lg">
+                                Multiple submissions
+                              </span>
+                              <span className="px-3 py-1.5 bg-gradient-to-r from-orange-500/15 to-orange-600/10 border border-orange-500/30 text-orange-300 text-sm font-medium rounded-lg">
+                                Same damage photos
+                              </span>
+                              <span className="px-3 py-1.5 bg-gradient-to-r from-yellow-500/15 to-yellow-600/10 border border-yellow-500/30 text-yellow-300 text-sm font-medium rounded-lg">
+                                Similar amounts
+                              </span>
                             </>
-                          )}
-                        </button>
-                      </>
-                    ) : (
-                      <div className="w-full py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-center">
-                        <p className="text-base font-bold text-gray-300 capitalize">
-                          Status: <span className="text-emerald-400">{claim.status}</span>
-                        </p>
+                          )
+                        )}
                       </div>
-                    )}
+
+                      {/* Bottom: 3 columns - Claim ID, User Name, Detected Date */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-4 border-t border-slate-800/50">
+                        <div>
+                          <p className="text-gray-400 text-sm font-medium mb-1">Claim ID</p>
+                          <p className="text-white font-mono font-bold text-lg truncate">{claim.id || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-400 text-sm font-medium mb-1">User Name</p>
+                          <p className="text-white font-semibold truncate">{claim.userName || claim.user || 'Unknown User'}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-400 text-sm font-medium mb-1">Detected Date</p>
+                          <p className="text-white font-semibold">
+                            {claim.submittedDate ? new Date(claim.submittedDate).toLocaleDateString() : 'N/A'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Section ~30% - Risk Score Panel & Action Buttons */}
+                  <div className="lg:w-4/12 flex flex-col gap-5 mt-6 lg:mt-0 border-t lg:border-t-0 lg:border-l border-slate-800/50 pt-6 lg:pt-0 lg:pl-6">
+                    {/* Top: Status Badges */}
+                    <div className="flex flex-wrap gap-3">
+                      <span className={`px-4 py-2 ${severity.iconBg} border ${severity.class.replace('text-', 'border-')}/30 text-white text-sm font-bold rounded-lg flex items-center gap-2`}>
+                        <ShieldAlert size={14} />
+                        {severity.label}
+                      </span>
+                      <span className="px-4 py-2 bg-gradient-to-r from-blue-500/15 to-blue-600/10 border border-blue-500/30 text-blue-300 text-sm font-bold rounded-lg">
+                        {claim.status === 'UNDER_REVIEW' ? 'Pending' : (claim.status || 'Pending')}
+                      </span>
+                    </div>
+
+                    {/* Middle: Risk Score Box */}
+                    <div className="bg-gradient-to-br from-slate-900/80 to-slate-950/80 border border-slate-700/50 rounded-xl p-5 shadow-inner w-full lg:max-w-xs">
+                      <div className="flex justify-between items-center mb-3">
+                        <div>
+                          <p className="text-gray-300 text-base font-medium">Risk Score</p>
+                          <p className="text-gray-500 text-xs">AI-powered assessment</p>
+                        </div>
+                        <div className="flex items-baseline">
+                          <span className={`${severity.class} text-5xl font-bold`}>{score}</span>
+                          <span className="text-gray-400 text-lg">/100</span>
+                        </div>
+                      </div>
+                      {/* Progress Bar with glow */}
+                      <div className="relative w-full bg-slate-800/50 rounded-full h-3 overflow-hidden mb-2">
+                        <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-orange-500/20 to-green-500/20"></div>
+                        <div
+                          className="h-full bg-gradient-to-r from-red-500 via-orange-500 to-green-500 rounded-full relative"
+                          style={{ width: `${Math.min(score, 100)}%` }}
+                        >
+                          <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-xs text-gray-400 mt-1">
+                        <span className={score >= 0 && score < 20 ? "text-green-400 font-bold" : ""}>Low</span>
+                        <span className={score >= 20 && score < 50 ? "text-yellow-400 font-bold" : ""}>Medium</span>
+                        <span className={score >= 50 && score < 75 ? "text-orange-400 font-bold" : ""}>High</span>
+                        <span className={score >= 75 ? "text-red-400 font-bold" : ""}>Critical</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom: Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      {!isFinalized ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              setSelectedClaim(claim);
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            disabled={actionLoading === claim.id}
+                            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3.5 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30"
+                          >
+                            <Eye size={18} />
+                            Investigate Details
+                          </button>
+                          <button
+                            onClick={() => handleAction(claim.id, 'REJECTED', true)}
+                            disabled={actionLoading === claim.id}
+                            className="w-full bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white py-3.5 px-5 rounded-xl flex items-center justify-center gap-3 font-bold transition-all disabled:opacity-50 shadow-lg shadow-gray-500/20 hover:shadow-gray-500/30"
+                          >
+                            {actionLoading === claim.id ? (
+                              <Loader2 size={18} className="animate-spin" />
+                            ) : (
+                              <>
+                                <XCircle size={18} />
+                                Dismiss Alert
+                              </>
+                            )}
+                          </button>
+                        </>
+                      ) : (
+                        <div className="w-full py-3.5 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl text-center shadow-inner">
+                          <p className="text-base font-bold text-gray-300 capitalize">
+                            Status: <span className="text-emerald-400">{claim.status}</span>
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">Final decision made</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

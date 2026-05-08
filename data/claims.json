@@ -1,5 +1,510 @@
 [
   {
+    "id": "CLM-2024-0025",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 16 claims in the last 30 days (frequency burst detected)",
+      "User has 15 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-08T12:12:36.884Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 16 claims in the last 30 days (frequency burst detected), User has 15 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778242356820",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-5879 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-08",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "car reparing ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-08T12:12:36.827Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0024",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 14 claims in the last 30 days (frequency burst detected)",
+      "User has 13 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-07T09:48:29.748Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 14 claims in the last 30 days (frequency burst detected), User has 13 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778147309703",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-5879 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-07",
+    "description": "Data extracted via OCR.\nPolicy #: Number\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "auto car solutions",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-07T09:48:29.710Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0023",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "amount": "20257418585",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 100,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "Claim amount (₹20,25,74,18,585) is significantly higher than user average (₹6,18,22,80,23,35,952.914) or exceeds ₹150,000 threshold",
+      "User has filed 12 claims in the last 30 days (frequency burst detected)",
+      "User has 11 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "REJECTED",
+    "breakdown": [
+      {
+        "factor": "Claim Amount Anomaly",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-07T08:19:32.842Z",
+    "reviewedDate": "2026-05-07T08:20:20.257Z",
+    "adminNotes": null,
+    "fraudExplanation": "Claim amount (₹20,25,74,18,585) is significantly higher than user average (₹6,18,22,80,23,35,952.914) or exceeds ₹150,000 threshold, User has filed 12 claims in the last 30 days (frequency burst detected), User has 11 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)",
+    "markedAsFraud": true
+  },
+  {
+    "id": "CLM-1778141972803",
+    "userName": "rahul singh",
+    "userEmail": "rahulxyz@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-5879 (TATA nexon)",
+    "amount": "20257418585",
+    "incidentDate": "2026-05-07",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "auto car ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-07T08:19:32.808Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0022",
+    "userName": "sartahk kumbhar",
+    "userEmail": "sarthak@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 3 claims in the last 30 days (frequency burst detected)",
+      "User has 2 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-07T07:55:01.872Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 3 claims in the last 30 days (frequency burst detected), User has 2 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778140501836",
+    "userName": "sartahk kumbhar",
+    "userEmail": "sarthak@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-5954 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-07",
+    "description": "Data extracted via OCR.\nPolicy #: i\nDate: 07/05/2026\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 17,
+      "severity": "Minor"
+    },
+    "repairDetails": "auto car solution ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-07T07:55:01.842Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0021",
+    "userName": "sartahk kumbhar",
+    "userEmail": "sarthak@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 45,
+    "fraudSeverity": "high",
+    "fraudFlags": [
+      "User has 1 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "STANDARD_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-07T07:40:56.018Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has 1 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778139655960",
+    "userName": "sartahk kumbhar",
+    "userEmail": "sarthak@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-5954 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-07",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": null,
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "auto car ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-07T07:40:55.969Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0017",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 8 claims in the last 30 days (frequency burst detected)",
+      "User has 8 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "APPROVED",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-07T02:22:14.566Z",
+    "reviewedDate": "2026-05-07T04:33:26.481Z",
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 8 claims in the last 30 days (frequency burst detected), User has 8 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778120534491",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-2098 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-07",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "auto Car insuarence ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-07T02:22:14.502Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
+    "id": "CLM-2024-0016",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "vehicle",
+    "amount": "2025",
+    "validationStatus": "COMPLETED",
+    "issues": [],
+    "fraudScore": 70,
+    "fraudSeverity": "critical",
+    "fraudFlags": [
+      "User has filed 6 claims in the last 30 days (frequency burst detected)",
+      "User has 6 previous rejected or fraudulent claims",
+      "Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    ],
+    "status": "ENHANCED_REVIEW",
+    "breakdown": [
+      {
+        "factor": "Frequency Burst",
+        "score": 25,
+        "weight": "High"
+      },
+      {
+        "factor": "Previous Fraud History",
+        "score": 30,
+        "weight": "High"
+      },
+      {
+        "factor": "Image Confidence Low",
+        "score": 15,
+        "weight": "Low"
+      }
+    ],
+    "submittedDate": "2026-05-06T15:50:48.538Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudExplanation": "User has filed 6 claims in the last 30 days (frequency burst detected), User has 6 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+  },
+  {
+    "id": "CLM-1778082648466",
+    "userName": "Prabhakar Shivaji Shinde",
+    "userEmail": "shindeprabhakar686@gmail.com",
+    "claimType": "vehicle",
+    "policyId": "POL-VEHI-2098 (TATA nexon)",
+    "amount": "2025",
+    "incidentDate": "2026-05-06",
+    "description": "Data extracted via OCR.\nPolicy #: PKY\n",
+    "aiPrediction": "damage_vehicle",
+    "extractedData": {
+      "success": true,
+      "extractedText": "AUTO CARE SOLUTIONS TAX INVOICE\nMULTI-BRAND CAR SERVICE CENTER Invoice No. : ACS/INV/2025/0587\nShop No. 12, Industrial Area, Hinjawadi Phase 1, Invoice Date : 15 May 2025\nPune - 411057, Maharashtra, India Claim|No; : CLM/2025/4587\nPhone: +91 20 6655 7788 | Email: info@autocaresolutions.in Policy No.",
+      "amount": 2025,
+      "policyNumber": "PKY",
+      "date": null
+    },
+    "carDamage": {
+      "percentage": 63,
+      "severity": "Moderate"
+    },
+    "repairDetails": "auto car solutions ",
+    "status": "REJECTED",
+    "breakdown": [],
+    "submittedDate": "2026-05-06T15:50:48.473Z",
+    "reviewedDate": null,
+    "adminNotes": null,
+    "fraudScore": 0,
+    "fraudSeverity": "low",
+    "fraudFlags": [
+      "All validations passed - claim appears legitimate"
+    ],
+    "fraudExplanation": "All validations passed - claim appears legitimate"
+  },
+  {
     "id": "CLM-2024-0015",
     "userName": "Prabhakar Shivaji Shinde",
     "userEmail": "akshayshinde1212@gmail.com",
@@ -305,7 +810,7 @@
       "User has 3 previous rejected or fraudulent claims",
       "Low confidence in AI validation (damage: 0%, OCR: 0%)"
     ],
-    "status": "AUTO_REJECT",
+    "status": "REJECTED",
     "breakdown": [
       {
         "factor": "Claim Amount Anomaly",
@@ -329,9 +834,10 @@
       }
     ],
     "submittedDate": "2026-05-06T04:59:12.368Z",
-    "reviewedDate": null,
+    "reviewedDate": "2026-05-06T15:51:59.261Z",
     "adminNotes": null,
-    "fraudExplanation": "Claim amount (₹20,26,78,456) is significantly higher than user average (₹12,36,42,19,46,54,382.33) or exceeds ₹150,000 threshold, User has filed 6 claims in the last 30 days (frequency burst detected), User has 3 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    "fraudExplanation": "Claim amount (₹20,26,78,456) is significantly higher than user average (₹12,36,42,19,46,54,382.33) or exceeds ₹150,000 threshold, User has filed 6 claims in the last 30 days (frequency burst detected), User has 3 previous rejected or fraudulent claims, Low confidence in AI validation (damage: 0%, OCR: 0%)",
+    "markedAsFraud": true
   },
   {
     "id": "CLM-1778043552320",
@@ -454,12 +960,12 @@
     "validationStatus": "COMPLETED",
     "issues": [],
     "fraudScore": 40,
-    "fraudSeverity": "high",
+    "fraudSeverity": "critical",
     "fraudFlags": [
       "User has filed 2 claims in the last 30 days (frequency burst detected)",
       "Low confidence in AI validation (damage: 0%, OCR: 0%)"
     ],
-    "status": "STANDARD_REVIEW",
+    "status": "REJECTED",
     "breakdown": [
       {
         "factor": "Frequency Burst",
@@ -473,9 +979,10 @@
       }
     ],
     "submittedDate": "2026-04-26T08:25:05.304Z",
-    "reviewedDate": null,
+    "reviewedDate": "2026-05-07T02:23:22.332Z",
     "adminNotes": null,
-    "fraudExplanation": "User has filed 2 claims in the last 30 days (frequency burst detected), Low confidence in AI validation (damage: 0%, OCR: 0%)"
+    "fraudExplanation": "User has filed 2 claims in the last 30 days (frequency burst detected), Low confidence in AI validation (damage: 0%, OCR: 0%)",
+    "markedAsFraud": true
   },
   {
     "id": "CLM-2024-0013",
@@ -559,13 +1066,13 @@
       "behavioralPattern": 0,
       "thirdPartyData": 0
     },
-    "fraudSeverity": "high",
+    "fraudSeverity": "critical",
     "fraudFlags": [
       "Claim amount is significantly higher than expected baseline or average",
       "Claim filed for high amount shortly after policy start/activity",
       "Claim description is too vague or missing details"
     ],
-    "status": "MANUAL_REVIEW",
+    "status": "REJECTED",
     "routingPriority": "ENHANCED_REVIEW",
     "investigationStatus": "PENDING",
     "breakdown": [
@@ -583,7 +1090,7 @@
       }
     ],
     "submittedDate": "2026-04-21T06:39:02.480Z",
-    "reviewedDate": null,
+    "reviewedDate": "2026-05-06T15:58:41.414Z",
     "adminNotes": null,
     "fraudExplanation": "Claim amount is significantly higher than expected baseline or average, Claim filed for high amount shortly after policy start/activity, Claim description is too vague or missing details",
     "ocrValidation": {
@@ -611,7 +1118,8 @@
         "user": "System",
         "details": "High risk detected - flagged for enhanced review"
       }
-    ]
+    ],
+    "markedAsFraud": true
   },
   {
     "id": "CLM-2024-0011",

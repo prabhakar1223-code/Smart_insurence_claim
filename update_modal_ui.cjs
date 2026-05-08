@@ -1,275 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import {
-  X, User, FileText, IndianRupee, Shield, Calendar, Eye,
-  CheckCircle, XCircle, ShieldAlert, AlertTriangle, ShieldCheck,
-  Loader2, ShieldOff, MessageSquare, MapPin, Stethoscope, BarChart, Info,
-  Clock, Tag, AlertCircle, TrendingUp, FileSearch, Users, Download, Filter, Zap
-} from 'lucide-react';
+const fs = require('fs');
 
-interface Props {
-  claim: any;
-  onClose: () => void;
-  onUpdateStatus?: (claimId: string, status: string, notes?: string, markedAsFraud?: boolean) => Promise<void>;
-}
+let content = fs.readFileSync('src/components/admin/ClaimInvestigation.tsx', 'utf-8');
 
-export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
-  const [adminNotes, setAdminNotes] = useState(claim?.adminNotes || '');
-  const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [actionDone, setActionDone] = useState(false);
-  const [investigationTags, setInvestigationTags] = useState<string[]>(claim?.investigationTags || []);
-  const [newTag, setNewTag] = useState('');
-  const [showTimeline, setShowTimeline] = useState(false);
-  const [showOcrDetails, setShowOcrDetails] = useState(false);
-  const [investigationData, setInvestigationData] = useState<any>(null);
-  const [loadingInvestigation, setLoadingInvestigation] = useState(false);
-
-  // Fetch enhanced investigation data
-  useEffect(() => {
-    const fetchInvestigationData = async () => {
-      if (!claim?.id && !claim?.claimId) return;
-
-      setLoadingInvestigation(true);
-      try {
-        const claimId = claim.id || claim.claimId;
-        const response = await fetch(`/api/investigation/${claimId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setInvestigationData(data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch investigation data:', error);
-      } finally {
-        setLoadingInvestigation(false);
-      }
-    };
-
-    fetchInvestigationData();
-  }, [claim]);
-
-  // Scroll lock effect
-  useEffect(() => {
-    // Lock body scroll when modal opens
-    document.body.style.overflow = 'hidden';
-
-    // Cleanup: restore scroll when modal closes
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
-
-  if (!claim) return null;
-
-  const score = claim.fraudScore || claim.riskScore || 0;
-  const isFinalized = ['APPROVED', 'REJECTED', 'BLOCKED'].includes((claim.status || '').toUpperCase());
-
-  const getRiskColor = (s: number) => {
-    if (s >= 70) return { color: '#ef4444', label: 'High Risk', bg: 'bg-red-500/15', text: 'text-red-400', border: 'border-red-500/20' };
-    if (s >= 30) return { color: '#f59e0b', label: 'Medium Risk', bg: 'bg-amber-500/15', text: 'text-amber-400', border: 'border-amber-500/20' };
-    return { color: '#10b981', label: 'Low Risk', bg: 'bg-emerald-500/15', text: 'text-emerald-400', border: 'border-emerald-500/20' };
-  };
-
-  // Helper function to provide detailed explanations for risk factors
-  const getRiskExplanation = (reason: string, score: number): string => {
-    const reasonLower = reason.toLowerCase();
-    if (reasonLower.includes('amount') || reasonLower.includes('value')) {
-      return 'Claim amount appears unusually high compared to similar claims or policy limits.';
-    } else if (reasonLower.includes('pattern') || reasonLower.includes('frequency')) {
-      return 'User has submitted multiple claims in a short timeframe, which is statistically unusual.';
-    } else if (reasonLower.includes('document') || reasonLower.includes('evidence')) {
-      return 'Uploaded documents show inconsistencies, poor quality, or potential tampering.';
-    } else if (reasonLower.includes('location') || reasonLower.includes('geographic')) {
-      return 'Claim location differs from policyholder\'s registered address or shows suspicious patterns.';
-    } else if (reasonLower.includes('time') || reasonLower.includes('date')) {
-      return 'Timing of claim submission raises concerns (e.g., immediately after policy purchase).';
-    } else if (reasonLower.includes('ocr') || reasonLower.includes('extracted')) {
-      return 'OCR analysis detected mismatches between extracted data and submitted information.';
-    } else if (reasonLower.includes('damage') || reasonLower.includes('injury')) {
-      return 'Reported damage/injury severity appears inconsistent with evidence or circumstances.';
-    } else {
-      return 'AI detected anomalous patterns that deviate from normal claim behavior.';
-    }
-  };
-
-  // Helper function to determine severity level for a risk factor
-  const getRiskSeverity = (reason: string): string => {
-    const reasonLower = reason.toLowerCase();
-    if (reasonLower.includes('high') || reasonLower.includes('critical') || reasonLower.includes('severe')) {
-      return 'HIGH';
-    } else if (reasonLower.includes('medium') || reasonLower.includes('moderate')) {
-      return 'MEDIUM';
-    } else if (reasonLower.includes('low') || reasonLower.includes('minor')) {
-      return 'LOW';
-    } else {
-      // Default based on overall score
-      return score >= 70 ? 'HIGH' : score >= 30 ? 'MEDIUM' : 'LOW';
-    }
-  };
-
-  const risk = getRiskColor(score);
-
-  const handleAction = async (status: string, markedAsFraud?: boolean) => {
-    if (!onUpdateStatus) return;
-    setActionLoading(status);
-    await onUpdateStatus(claim.id || claim.claimId, status, adminNotes || undefined, markedAsFraud);
-    setActionLoading(null);
-    setActionDone(true);
-  };
-
-  // Enhanced OCR analysis helper
-  const getOCRConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return 'text-emerald-400 bg-emerald-500/15';
-    if (confidence >= 60) return 'text-amber-400 bg-amber-500/15';
-    return 'text-red-400 bg-red-500/15';
-  };
-
-  const getOCRConfidenceLabel = (confidence: number) => {
-    if (confidence >= 80) return 'High Confidence';
-    if (confidence >= 60) return 'Medium Confidence';
-    return 'Low Confidence';
-  };
-
-  const getTamperingSeverity = (score: number, returnType: 'object' | 'color' | 'class' = 'object') => {
-    if (score >= 50) {
-      if (returnType === 'color') return 'bg-red-500';
-      if (returnType === 'class') return 'text-red-400 bg-red-500/15';
-      return { label: 'High Tampering Risk', color: 'text-red-400 bg-red-500/15' };
-    }
-    if (score >= 20) {
-      if (returnType === 'color') return 'bg-amber-500';
-      if (returnType === 'class') return 'text-amber-400 bg-amber-500/15';
-      return { label: 'Medium Tampering Risk', color: 'text-amber-400 bg-amber-500/15' };
-    }
-    if (returnType === 'color') return 'bg-emerald-500';
-    if (returnType === 'class') return 'text-emerald-400 bg-emerald-500/15';
-    return { label: 'Low Tampering Risk', color: 'text-emerald-400 bg-emerald-500/15' };
-  };
-
-  // Tag management
-  const handleAddTag = () => {
-    if (newTag.trim() && !investigationTags.includes(newTag.trim())) {
-      setInvestigationTags([...investigationTags, newTag.trim()]);
-      setNewTag('');
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove: string) => {
-    setInvestigationTags(investigationTags.filter(tag => tag !== tagToRemove));
-  };
-
-  // Generate investigation timeline data
-  const generateInvestigationTimeline = () => {
-    const timeline = [];
-
-    // Claim submission
-    if (claim.submittedDate) {
-      timeline.push({
-        time: new Date(claim.submittedDate).toLocaleString(),
-        event: 'Claim Submitted',
-        icon: '📄',
-        color: 'bg-blue-500/20 text-blue-400'
-      });
-    }
-
-    // Risk assessment
-    if (claim.assessedDate || claim.submittedDate) {
-      timeline.push({
-        time: new Date(claim.assessedDate || claim.submittedDate).toLocaleString(),
-        event: 'Risk Assessment Completed',
-        icon: '📊',
-        color: 'bg-purple-500/20 text-purple-400'
-      });
-    }
-
-    // OCR processing
-    if (claim.extractedData?.processingTime) {
-      timeline.push({
-        time: new Date(claim.extractedData.processingTime).toLocaleString(),
-        event: 'OCR Processing Completed',
-        icon: '🔍',
-        color: 'bg-green-500/20 text-green-400'
-      });
-    }
-
-    // Admin review if exists
-    if (claim.reviewedBy) {
-      timeline.push({
-        time: claim.reviewedAt ? new Date(claim.reviewedAt).toLocaleString() : 'Recently',
-        event: `Reviewed by ${claim.reviewedBy}`,
-        icon: '👤',
-        color: 'bg-amber-500/20 text-amber-400'
-      });
-    }
-
-    return timeline;
-  };
-
-  // Generate investigation recommendations
-  const generateInvestigationRecommendations = () => {
-    const recommendations = [];
-    const score = claim.fraudScore || claim.riskScore || 0;
-
-    // Based on risk score
-    if (score >= 70) {
-      recommendations.push({
-        title: 'Immediate Investigation Required',
-        description: 'High risk score indicates potential fraud. Assign to senior investigator.',
-        priority: 'HIGH',
-        icon: '🚨'
-      });
-      recommendations.push({
-        title: 'Verify Supporting Documents',
-        description: 'Request original documents and cross-check with third-party sources.',
-        priority: 'HIGH',
-        icon: '📋'
-      });
-    } else if (score >= 30) {
-      recommendations.push({
-        title: 'Detailed Document Review',
-        description: 'Review all uploaded documents for inconsistencies.',
-        priority: 'MEDIUM',
-        icon: '🔍'
-      });
-      recommendations.push({
-        title: 'User History Check',
-        description: 'Review user claim history for patterns.',
-        priority: 'MEDIUM',
-        icon: '📊'
-      });
-    }
-
-    // Based on OCR results
-    if (claim.extractedData?.validation?.tamperingScore > 30) {
-      recommendations.push({
-        title: 'Document Tampering Check',
-        description: 'OCR detected potential document manipulation. Verify document authenticity.',
-        priority: 'HIGH',
-        icon: '⚠️'
-      });
-    }
-
-    // Based on amount
-    if (claim.amount > 500000) {
-      recommendations.push({
-        title: 'High Amount Verification',
-        description: 'Large claim amount requires additional verification steps.',
-        priority: 'MEDIUM',
-        icon: '💰'
-      });
-    }
-
-    // General recommendations
-    recommendations.push({
-      title: 'Complete Investigation Notes',
-      description: 'Document all findings and decisions for audit trail.',
-      priority: 'LOW',
-      icon: '📝'
-    });
-
-    return recommendations;
-  };
-
-    // Create portal for modal to render at root level
+const newModalContent = `  // Create portal for modal to render at root level
   const cardStyle = { backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '20px', border: '1px solid #E5E7EB', boxShadow: '0 10px 25px rgba(0,0,0,0.08)' };
   
   const modalContent = (
@@ -309,7 +42,7 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
         {/* Header */}
         <div id="modalHeader" className="flex items-center justify-between pb-6 border-b border-[rgba(255,255,255,0.08)] mb-6">
           <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30`}>
+            <div className={\`p-3 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30\`}>
               <ShieldAlert size={28} />
             </div>
             <div>
@@ -418,7 +151,7 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
                   </div>
                 </div>
                 <div className="mt-6 text-center">
-                  <span className={`px-4 py-1.5 rounded-full text-sm font-bold ${score >= 70 ? 'bg-red-100 text-red-600' : score >= 30 ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}`}>
+                  <span className={\`px-4 py-1.5 rounded-full text-sm font-bold \${score >= 70 ? 'bg-red-100 text-red-600' : score >= 30 ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}\`}>
                     {risk.label}
                   </span>
                   <p className="text-xs text-[#6B7280] mt-3">
@@ -445,7 +178,7 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
                           <p className="text-xs text-[#6B7280]">{getRiskExplanation(reason, score)}</p>
                         </div>
                         <div>
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${severity === 'HIGH' ? 'bg-red-100 text-red-600' : severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}`}>
+                          <span className={\`px-3 py-1 rounded-full text-xs font-bold \${severity === 'HIGH' ? 'bg-red-100 text-red-600' : severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}\`}>
                             {severity}
                           </span>
                         </div>
@@ -527,7 +260,7 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
                       <p className="text-xs text-[#6B7280] mb-1">Confidence Score</p>
                       <div className="flex items-center gap-2">
                         <p className="font-bold text-[#111827] text-lg">{Math.round(claim.extractedData.ocrConfidence || 0)}%</p>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${getOCRConfidenceColor(claim.extractedData.ocrConfidence || 0)}`}>
+                        <span className={\`px-2 py-0.5 rounded text-[10px] font-bold uppercase \${getOCRConfidenceColor(claim.extractedData.ocrConfidence || 0)}\`}>
                           {getOCRConfidenceLabel(claim.extractedData.ocrConfidence || 0)}
                         </span>
                       </div>
@@ -559,7 +292,7 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
               <div className="space-y-4">
                 {generateInvestigationTimeline().map((item, idx) => (
                   <div key={idx} className="flex gap-4">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${item.color}`}>
+                    <div className={\`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 \${item.color}\`}>
                       {item.icon}
                     </div>
                     <div className="pb-4 border-b border-[#E5E7EB] flex-1">
@@ -624,7 +357,15 @@ export function ClaimInvestigation({ claim, onClose, onUpdateStatus }: Props) {
       </div>
     </div>
   );
+`;
 
-  // Render modal via portal at document.body
-  return createPortal(modalContent, document.body);
+const startIndex = content.indexOf('// Create portal for modal to render at root level');
+const endIndex = content.indexOf('// Render modal via portal at document.body');
+
+if (startIndex !== -1 && endIndex !== -1) {
+  content = content.substring(0, startIndex) + newModalContent + '\n  ' + content.substring(endIndex);
+  fs.writeFileSync('src/components/admin/ClaimInvestigation.tsx', content, 'utf-8');
+  console.log('Done!');
+} else {
+  console.log('Could not find start or end index');
 }

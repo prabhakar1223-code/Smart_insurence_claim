@@ -1,5 +1,103 @@
 [
   {
+    "id": 1778242356894,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-2024-0025 submitted for ₹2025",
+    "timestamp": "2026-05-08T12:12:36.894Z"
+  },
+  {
+    "id": 1778242356840,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-1778242356820 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-08T12:12:36.840Z"
+  },
+  {
+    "id": 1778147309759,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-2024-0024 submitted for ₹2025",
+    "timestamp": "2026-05-07T09:48:29.759Z"
+  },
+  {
+    "id": 1778147309724,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-1778147309703 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-07T09:48:29.724Z"
+  },
+  {
+    "id": 1778141972847,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-2024-0023 submitted for ₹20257418585",
+    "timestamp": "2026-05-07T08:19:32.847Z"
+  },
+  {
+    "id": 1778141972814,
+    "action": "CLAIM_SUBMITTED",
+    "user": "rahul singh",
+    "details": "New claim CLM-1778141972803 submitted for ₹20257418585 via AI validation",
+    "timestamp": "2026-05-07T08:19:32.814Z"
+  },
+  {
+    "id": 1778140501875,
+    "action": "CLAIM_SUBMITTED",
+    "user": "sartahk kumbhar",
+    "details": "New claim CLM-2024-0022 submitted for ₹2025",
+    "timestamp": "2026-05-07T07:55:01.875Z"
+  },
+  {
+    "id": 1778140501852,
+    "action": "CLAIM_SUBMITTED",
+    "user": "sartahk kumbhar",
+    "details": "New claim CLM-1778140501836 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-07T07:55:01.852Z"
+  },
+  {
+    "id": 1778139656020,
+    "action": "CLAIM_SUBMITTED",
+    "user": "sartahk kumbhar",
+    "details": "New claim CLM-2024-0021 submitted for ₹2025",
+    "timestamp": "2026-05-07T07:40:56.020Z"
+  },
+  {
+    "id": 1778139655974,
+    "action": "CLAIM_SUBMITTED",
+    "user": "sartahk kumbhar",
+    "details": "New claim CLM-1778139655960 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-07T07:40:55.974Z"
+  },
+  {
+    "id": 1778120534571,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0017 submitted for ₹2025",
+    "timestamp": "2026-05-07T02:22:14.571Z"
+  },
+  {
+    "id": 1778120534514,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-1778120534491 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-07T02:22:14.514Z"
+  },
+  {
+    "id": 1778082648545,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-2024-0016 submitted for ₹2025",
+    "timestamp": "2026-05-06T15:50:48.545Z"
+  },
+  {
+    "id": 1778082648484,
+    "action": "CLAIM_SUBMITTED",
+    "user": "Prabhakar Shivaji Shinde",
+    "details": "New claim CLM-1778082648466 submitted for ₹2025 via AI validation",
+    "timestamp": "2026-05-06T15:50:48.484Z"
+  },
+  {
     "id": 1778064049586,
     "action": "CLAIM_SUBMITTED",
     "user": "Prabhakar Shivaji Shinde",

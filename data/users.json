@@ -493,5 +493,15 @@
     "createdAt": 1778075921662,
     "role": "user",
     "emailHash": "8792b0bd04b05bca80d0ac0ae739592e0ade5cf41add163188e35b88869f785b"
+  },
+  {
+    "id": "boxlih",
+    "name": "U2FsdGVkX18dk+rsG8BrNz91EvJ55Sb6wr+236fyeo9NS0p3EeEQj1N83W4UAgWo",
+    "email": "U2FsdGVkX18DOiN/wnr7+LHjrvQmElyhPqdkY6QdfgixMZJnHcngyHIGsqcgwvDd",
+    "password": "$2b$10$7MSKZPAkSW/5KLPPXQFfle/SBRzuHqR4H0rORzQxkKrw8qx4OuL9i",
+    "isVerified": true,
+    "createdAt": 1778139462344,
+    "role": "user",
+    "emailHash": "ec8ccbebc96b6537f43a7f6ff7e281fb1c7371a43cb2f0278f8d1cabc8c82cd4"
   }
 ]

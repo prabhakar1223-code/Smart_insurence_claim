@@ -1,5 +1,228 @@
 [
   {
+    "id": "notif-1778242356849-oen1oa1",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778242356820 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-08T12:12:36.849Z",
+    "metadata": {
+      "claimId": "CLM-1778242356820",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-08T12:12:36.849Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778147309731-uzprl75",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778147309703 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T09:48:29.731Z",
+    "metadata": {
+      "claimId": "CLM-1778147309703",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-07T09:48:29.731Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778142020261-4whgj96",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0023 Status Updated",
+    "message": "Your claim CLM-2024-0023 status has been updated to: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T08:20:20.261Z",
+    "metadata": {
+      "claimId": "CLM-2024-0023",
+      "oldStatus": "unknown",
+      "newStatus": "REJECTED",
+      "adminNotes": "",
+      "timestamp": "2026-05-07T08:20:20.261Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778141972818-gsu7xcb",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778141972803 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T08:19:32.818Z",
+    "metadata": {
+      "claimId": "CLM-1778141972803",
+      "claimType": "vehicle",
+      "amount": "20257418585",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-07T08:19:32.818Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778140501857-hlo9po6",
+    "userId": "sarthak@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778140501836 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T07:55:01.858Z",
+    "metadata": {
+      "claimId": "CLM-1778140501836",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-07T07:55:01.857Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778139655999-6usijbo",
+    "userId": "sarthak@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778139655960 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T07:40:55.999Z",
+    "metadata": {
+      "claimId": "CLM-1778139655960",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-07T07:40:55.997Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778128406485-1o9zmxh",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0017 Status Updated",
+    "message": "Your claim CLM-2024-0017 status has been updated to: APPROVED",
+    "read": false,
+    "timestamp": "2026-05-07T04:33:26.485Z",
+    "metadata": {
+      "claimId": "CLM-2024-0017",
+      "oldStatus": "unknown",
+      "newStatus": "APPROVED",
+      "adminNotes": "",
+      "timestamp": "2026-05-07T04:33:26.484Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778120602343-22ehnye",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0004 Status Updated",
+    "message": "Your claim CLM-2024-0004 status has been updated to: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T02:23:22.343Z",
+    "metadata": {
+      "claimId": "CLM-2024-0004",
+      "oldStatus": "unknown",
+      "newStatus": "REJECTED",
+      "adminNotes": "",
+      "timestamp": "2026-05-07T02:23:22.343Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778120534527-ri02j5w",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778120534491 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-07T02:22:14.527Z",
+    "metadata": {
+      "claimId": "CLM-1778120534491",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-07T02:22:14.527Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778083121418-9wgy88l",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0012 Status Updated",
+    "message": "Your claim CLM-2024-0012 status has been updated to: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T15:58:41.418Z",
+    "metadata": {
+      "claimId": "CLM-2024-0012",
+      "oldStatus": "unknown",
+      "newStatus": "REJECTED",
+      "adminNotes": "",
+      "timestamp": "2026-05-06T15:58:41.418Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778082719265-p9uzqd2",
+    "userId": "rahulxyz@gmail.com",
+    "type": "claim_status_update",
+    "title": "Claim CLM-2024-0007 Status Updated",
+    "message": "Your claim CLM-2024-0007 status has been updated to: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T15:51:59.265Z",
+    "metadata": {
+      "claimId": "CLM-2024-0007",
+      "oldStatus": "unknown",
+      "newStatus": "REJECTED",
+      "adminNotes": "",
+      "timestamp": "2026-05-06T15:51:59.265Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
+    "id": "notif-1778082648492-5e82kpu",
+    "userId": "shindeprabhakar686@gmail.com",
+    "type": "claim_submission",
+    "title": "Claim Submitted Successfully",
+    "message": "Your claim CLM-1778082648466 has been submitted. Status: REJECTED",
+    "read": false,
+    "timestamp": "2026-05-06T15:50:48.492Z",
+    "metadata": {
+      "claimId": "CLM-1778082648466",
+      "claimType": "vehicle",
+      "amount": "2025",
+      "riskScore": 0,
+      "status": "REJECTED",
+      "timestamp": "2026-05-06T15:50:48.492Z"
+    },
+    "priority": "INFO",
+    "category": "SYSTEM"
+  },
+  {
     "id": "notif-1778075752181-4lg6hm0",
     "userId": "prabhakarshinde1223@gmail.com",
     "type": "claim_status_update",
